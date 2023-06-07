@@ -1,0 +1,37 @@
+sua package
+===========
+
+Submodules
+----------
+
+sua.io\_config module
+---------------------
+
+.. automodule:: sua.io_config
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+sua.io\_glob module
+-------------------
+
+.. automodule:: sua.io_glob
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+sua.io\_utils module
+--------------------
+
+.. automodule:: sua.io_utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: sua
+   :members:
+   :undoc-members:
+   :show-inheritance:
