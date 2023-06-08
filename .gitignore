@@ -13,6 +13,6 @@
 /docs/build/pdf/manual.rtc
 /docs/build/pdf/manual.stylelog
 /src/sua.egg-info/
-/src/sua/sua.egg-info/
+/sua/sua.egg-info/
 __pycache__
 coverage.xml

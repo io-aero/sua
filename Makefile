@@ -10,11 +10,8 @@ ifeq ($(OS),Windows_NT)
 	export OPTION_NUITKA=--clang
 	export PIPENV=python -m pipenv
 	export PYTHON=python
-	export PYTHONPATH=
-	export PYTHONPATH_DEV=src
-	export PYTHONPATH_SUA=src\\sua
-	export PYTHONPATH_MYPY=src
-	export PYTHONPATH_PYTEST=src
+	export PYTHONPATH=src sua
+	export PYTHONPATH_PYTEST=src;sua
 	export SETUP=${PYTHON} src\\setup.py
 	export SPHINX_BUILDDIR=docs\\build
 	export SPHINX_SOURCEDIR=docs\\source
@@ -29,11 +26,8 @@ else
 	export OPTION_NUITKA=--disable-ccache
 	export PIPENV=python3 -m pipenv
 	export PYTHON=python3
-	export PYTHONPATH=
-	export PYTHONPATH_DEV=src
-	export PYTHONPATH_SUA=src/sua
-	export PYTHONPATH_MYPY=src
-	export PYTHONPATH_PYTEST=src
+	export PYTHONPATH=src sua
+	export PYTHONPATH_PYTEST=src:sua
 	export SETUP=${PYTHON} src/setup.py
 	export SPHINX_BUILDDIR=docs/build
 	export SPHINX_SOURCEDIR=docs/source
@@ -55,11 +49,11 @@ endif
 ## app-dev:			   Setup the enviornment for developing apps
 app-dev: vscode
 ## dev:                Format, lint and test the code.
-dev: format lint tests
+dev: format lint sua
 ## docs:               Check the API documentation, create and upload the user documentation.
 docs: pydocstyle sphinx
 ## final:              Format, lint and test the code, create a ddl, the documentation and a wheel.
-final: format lint docs tests wheel nuitka
+final: format lint docs sua wheel nuitka
 ## format:             Format the code with isort, Black and docformatter.
 format: isort black docformatter
 ## lint:               Lint the code with Bandit, Flake8, Pylint and Mypy.
@@ -77,10 +71,10 @@ help:
 bandit:             ## Find common security issues with Bandit.
 	@echo Info **********  Start: Bandit ***************************************
 	@echo PYTHON    =${PYTHON}
-	@echo PYTHONPATH=${PYTHONPATH_DEV}
+	@echo PYTHONPATH=${PYTHONPATH}
 	${PIPENV} run bandit --version
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run bandit -c pyproject.toml -r ${PYTHONPATH_DEV}
+	${PIPENV} run bandit -c pyproject.toml -r ${PYTHONPATH}/src
 	@echo Info **********  End:   Bandit ***************************************
 
 # The Uncompromising Code Formatter
@@ -89,10 +83,10 @@ bandit:             ## Find common security issues with Bandit.
 black:              ## Format the code with Black.
 	@echo Info **********  Start: black ****************************************
 	@echo PYTHON    =${PYTHON}
-	@echo PYTHONPATH=${PYTHONPATH_DEV}
+	@echo PYTHONPATH=${PYTHONPATH}
 	${PIPENV} run black --version
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run black ${PYTHONPATH_DEV} tests
+	${PIPENV} run black ${PYTHONPATH}
 	@echo Info **********  End:   black ****************************************
 
 # VS Code
@@ -122,10 +116,10 @@ compileall:         ## Byte-compile the Python libraries.
 # Configuration file: none
 coveralls:          ## Run all the tests and upload the coverage data to coveralls.
 	@echo Info **********  Start: coveralls ***********************************
-	@echo PYTHON            =${PYTHON}
-	@echo PYTHONPATH_PYTEST=${PYTHONPATH_PYTEST}
+	@echo PYTHON    =${PYTHON}
+	@echo PYTHONPATH=${PYTHONPATH}
 	@echo ---------------------------------------------------------------------
-	${PIPENV} run pytest --cov=${PYTHONPATH_PYTEST} --cov-report=xml tests
+	${PIPENV} run pytest --cov=${PYTHONPATH} --cov-report=xml tests
 	@echo ----------------------------------------------------------------------
 	${PIPENV} run coveralls --service=github
 	@echo Info **********  End:   coveralls ***********************************
@@ -139,7 +133,7 @@ docformatter:       ## Format the docstrings with docformatter.
 	@echo PYTHONPATH    =${PYTHONPATH}
 	${PIPENV} run docformatter --version
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run docformatter --in-place -r ${PYTHONPATH} tests
+	${PIPENV} run docformatter --in-place -r ${PYTHONPATH}
 	@echo Info **********  End:   docformatter ********************************
 
 # Flake8: Your Tool For Style Guide Enforcement.
@@ -151,7 +145,7 @@ flake8:             ## Enforce the Python Style Guides with Flake8.
 	@echo PYTHONPATH=${PYTHONPATH}
 	${PIPENV} run flake8 --version
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run flake8 ${PYTHONPATH} tests
+	${PIPENV} run flake8 ${PYTHONPATH}
 	@echo Info **********  End:   Flake8 **************************************
 
 # isort your imports, so you don't have to.
@@ -160,10 +154,10 @@ flake8:             ## Enforce the Python Style Guides with Flake8.
 isort:              ## Edit and sort the imports with isort.
 	@echo Info **********  Start: isort ***************************************
 	@echo PYTHON    =${PYTHON}
-	@echo PYTHONPATH=${PYTHONPATH_DEV}
+	@echo PYTHONPATH=${PYTHONPATH}
 	${PIPENV} run isort --version
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run isort ${PYTHONPATH_DEV} tests
+	${PIPENV} run isort ${PYTHONPATH}
 	@echo Info **********  End:   isort ***************************************
 
 # Mypy: Static Typing for Python
@@ -172,10 +166,10 @@ isort:              ## Edit and sort the imports with isort.
 mypy:               ## Find typing issues with Mypy.
 	@echo Info **********  Start: Mypy ****************************************
 	@echo PYTHON    =${PYTHON}
-	@echo PYTHONPATH=${PYTHONPATH_MYPY}
+	@echo PYTHONPATH=${PYTHONPATH}
 	${PIPENV} run mypy --version
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run mypy ${PYTHONPATH_MYPY}
+	${PIPENV} run mypy ${PYTHONPATH}
 	@echo Info **********  End:   Mypy ****************************************
 
 # Nuitka: Python compiler written in Python
@@ -186,11 +180,11 @@ nuitka:             ## Create a dynamic link library.
 	@echo MYPYPATH           =${MYPYPATH}
 	@echo PYTHON             =${PYTHON}
 	@echo PYTHONPATH         =${PYTHONPATH}
-	@echo PYTHONPATH_TEMPLATE=${PYTHONPATH_SUA}
+	@echo PYTHONPATH_TEMPLATE=${PYTHONPATH}
 	${PIPENV} run ${PYTHON} -m nuitka --version
 	@echo ---------------------------------------------------------------------
 	${CREATE_DIST}
-	${PIPENV} run ${PYTHON} -m nuitka ${OPTION_NUITKA} --include-package=sua --module ${PYTHONPATH_SUA} --no-pyi-file --output-dir=dist --remove-output
+	${PIPENV} run ${PYTHON} -m nuitka ${OPTION_NUITKA} --include-package=sua --module ${PYTHONPATH} --no-pyi-file --output-dir=dist --remove-output
 	@echo Info **********  End:   nuitka **************************************
 
 # pip is the package installer for Python.
@@ -249,7 +243,7 @@ pydocstyle:         ## Check the API documentation with pydocstyle.
 	@echo PYTHONPATH=${PYTHONPATH}
 	${PIPENV} run pydocstyle --version
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run pydocstyle --count --match='(?!PDFLIB\\)*\.py' ${PYTHONPATH} tests
+	${PIPENV} run pydocstyle --count --match='(?!PDFLIB\\)*\.py' ${PYTHONPATH}
 	@echo Info **********  End:   pydocstyle **********************************
 
 # Pylint is a tool that checks for errors in Python code.
@@ -261,7 +255,7 @@ pylint:             ## Lint the code with Pylint.
 	@echo PYTHONPATH=${PYTHONPATH}
 	${PIPENV} run pylint --version
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run pylint ${PYTHONPATH_SUA} tests
+	${PIPENV} run pylint ${PYTHONPATH}
 	@echo Info **********  End:   Pylint **************************************
 
 # pytest: helps you write better programs.
@@ -272,7 +266,7 @@ pytest:             ## Run all tests with pytest.
 	${PIPENV} run pytest --version
 	@echo ----------------------------------------------------------------------
 	${PIPENV} run pytest --dead-fixtures --cache-clear tests
-	${PIPENV} run pytest --cache-clear --cov=${PYTHONPATH_PYTEST} --cov-report term-missing:skip-covered -v tests
+	${PIPENV} run pytest --cache-clear --cov=src --cov=sua --cov-report term-missing:skip-covered -v tests
 	@echo Info **********  End:   pytest **************************************
 pytest-ci:          ## Run all tests with pytest after test tool installation.
 	@echo Info **********  Start: pytest **************************************
@@ -285,25 +279,25 @@ pytest-ci:          ## Run all tests with pytest after test tool installation.
 	${PIPENV} run pytest --version
 	@echo ----------------------------------------------------------------------
 	${PIPENV} run pytest --dead-fixtures tests
-	${PIPENV} run pytest --cache-clear --cov=${PYTHONPATH_PYTEST} --cov-report term-missing:skip-covered -v tests
+	${PIPENV} run pytest --cache-clear --cov=${PYTHONPATH} --cov-report term-missing:skip-covered -v tests
 	@echo Info **********  End:   pytest **************************************
 pytest-first-issue: ## Run all tests with pytest until the first issue occurs.
 	@echo Info **********  Start: pytest **************************************
 	${PIPENV} run pytest --version
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run pytest --cache-clear --cov=${PYTHONPATH_PYTEST} --cov-report term-missing:skip-covered -rP -v -x tests
+	${PIPENV} run pytest --cache-clear --cov=${PYTHONPATH} --cov-report term-missing:skip-covered -rP -v -x tests
 	@echo Info **********  End:   pytest **************************************
 pytest-issue:       ## Run only the tests with pytest which are marked with 'issue'.
 	@echo Info **********  Start: pytest **************************************
 	${PIPENV} run pytest --version
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run pytest --cache-clear --capture=no --cov=${PYTHONPATH_PYTEST} --cov-report term-missing:skip-covered -m issue -rP -v -x tests
+	${PIPENV} run pytest --cache-clear --capture=no --cov=${PYTHONPATH} --cov-report term-missing:skip-covered -m issue -rP -v -x tests
 	@echo Info **********  End:   pytest **************************************
 pytest-module:      ## Run tests of specific module(s) with pytest - test_all & test_cfg_cls_setup & test_db_cls.
 	@echo Info **********  Start: pytest **************************************
 	${PIPENV} run pytest --version
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run pytest --cache-clear --cov=${PYTHONPATH_PYTEST} --cov-report term-missing:skip-covered -v tests/test_db_cls_action.py
+	${PIPENV} run pytest --cache-clear --cov=${PYTHONPATH} --cov-report term-missing:skip-covered -v tests/test_db_cls_action.py
 	@echo Info **********  End:   pytest **************************************
 
 # sphinx: Python Documentation Generator
@@ -332,10 +326,10 @@ sphinx:             ##  Create the user documentation with Sphinx.
 	@echo ---------------------------------------------------------------------
 	${DELETE_SPHINX_1}
 	cd docs
-	${PIPENV} run sphinx-apidoc -o ${SPHINX_SOURCEDIR} ${PYTHONPATH_SUA}
+	${PIPENV} run sphinx-apidoc -o ${SPHINX_SOURCEDIR} ${PYTHONPATH}
 	${DELETE_SPHINX_2}
 	${PIPENV} run sphinx-build -M html ${SPHINX_SOURCEDIR} ${SPHINX_BUILDDIR}
-#   ${PIPENV} run sphinx-build -b rinoh ${SPHINX_SOURCEDIR} ${SPHINX_BUILDDIR}/pdf
+#	${PIPENV} run sphinx-build -b rinoh ${SPHINX_SOURCEDIR} ${SPHINX_BUILDDIR}/pdf
 	cd ..
 	@echo Info **********  End:   sphinx **************************************
 
