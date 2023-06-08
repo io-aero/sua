@@ -4,26 +4,10 @@ sua package
 Submodules
 ----------
 
-sua.io\_config module
+sua.io\vector3d module
 ----------------------------
 
-.. automodule:: sua.io_config
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-sua.io\_glob module
---------------------------
-
-.. automodule:: sua.io_glob
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-sua.io\_utils module
----------------------------
-
-.. automodule:: sua.io_utils
+.. automodule:: sua.vector3d
    :members:
    :undoc-members:
    :show-inheritance:
