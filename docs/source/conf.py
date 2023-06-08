@@ -5,7 +5,7 @@
 
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../../src/'))
+sys.path.insert(0, os.path.abspath('../../sua/'))
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
@@ -39,12 +39,12 @@ html_theme_options = {
 }
 
 # -- Options for PDF output --------------------------------------------------
-# rinoh_documents = [
-#     dict(doc='index',
-#          logo='img/IO-Aero_logo.png',
-#          subtitle='Manual',
-#          target='manual',
-#          title='SUA Documentation',
-#          toctree_only=False,
-#          ),
-# ]
+rinoh_documents = [
+    dict(doc='index',
+         logo='img/IO-Aero_logo.png',
+         subtitle='Manual',
+         target='manual',
+         title='SUA Documentation',
+         toctree_only=False,
+         ),
+]
