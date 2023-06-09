@@ -11,7 +11,7 @@ from math import isclose
 
 import pytest
 
-from sua import vector3d
+from src.sua import vector3d
 
 
 def test_cross_product_1():
@@ -19,9 +19,9 @@ def test_cross_product_1():
     vector1 = vector3d.Vector3D(1, 2, 3)
     vector2 = vector3d.Vector3D(4, 5, 6)
     cross_product = vector1.cross_product(vector2)
-    assert isclose(cross_product.x_comp, -3)
-    assert isclose(cross_product.y_comp, 6)
-    assert isclose(cross_product.z_comp, -3)
+    assert isclose(cross_product.x, -3)
+    assert isclose(cross_product.y, 6)
+    assert isclose(cross_product.z, -3)
 
 
 def test_cross_product_2():
@@ -29,9 +29,9 @@ def test_cross_product_2():
     vector1 = vector3d.Vector3D(3, 5, -7)
     vector2 = vector3d.Vector3D(2, -6, 4)
     cross_product = vector1.cross_product(vector2)
-    assert isclose(cross_product.x_comp, -22)
-    assert isclose(cross_product.y_comp, -26)
-    assert isclose(cross_product.z_comp, -28)
+    assert isclose(cross_product.x, -22)
+    assert isclose(cross_product.y, -26)
+    assert isclose(cross_product.z, -28)
 
 
 def test_dot_product():
@@ -52,23 +52,23 @@ def test_normalize():
     vector = vector3d.Vector3D(3, 4, 5)
     normalized = vector.normalize()
     assert isclose(normalized.magnitude(), 1.0)
-    assert isclose(normalized.x_comp, 0.4242640687119285)
-    assert isclose(normalized.y_comp, 0.565685424949238)
-    assert isclose(normalized.z_comp, 0.7071067811865475)
+    assert isclose(normalized.x, 0.4242640687119285)
+    assert isclose(normalized.y, 0.565685424949238)
+    assert isclose(normalized.z, 0.7071067811865475)
 
 
 def test_rotate():
     """Test the rotation of a Vector3D object."""
     vector = vector3d.Vector3D(1, 0, 0)
     vector.rotate(90, "y")
-    assert isclose(vector.x_comp, 0)
-    assert isclose(vector.y_comp, 0)
-    assert isclose(vector.z_comp, -1)
+    assert isclose(vector.x, 0)
+    assert isclose(vector.y, 0)
+    assert isclose(vector.z, -1)
 
     vector.rotate(45, "z")
-    assert isclose(vector.x_comp, 0.7071067811865476)
-    assert isclose(vector.y_comp, -0.7071067811865475)
-    assert isclose(vector.z_comp, -1)
+    assert isclose(vector.x, 0.7071067811865476)
+    assert isclose(vector.y, -0.7071067811865475)
+    assert isclose(vector.z, -1)
 
     with pytest.raises(ValueError):
         vector.rotate(90, "invalid_axis")
@@ -78,6 +78,6 @@ def test_translate():
     """Test the translation of a Vector3D object."""
     vector = vector3d.Vector3D(1, 2, 3)
     vector.translate(4, 5, 6)
-    assert vector.x_comp == 5
-    assert vector.y_comp == 7
-    assert vector.z_comp == 9
+    assert vector.x == 5
+    assert vector.y == 7
+    assert vector.z == 9

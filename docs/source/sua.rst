@@ -4,11 +4,18 @@ sua package
 Submodules
 ----------
 
-Vector3D module
----------------
+sua.vector3d module
+-------------------
 
-.. automodule:: vector3d
+.. automodule:: sua.vector3d
    :members:
    :undoc-members:
    :show-inheritance:
 
+Module contents
+---------------
+
+.. automodule:: sua
+   :members:
+   :undoc-members:
+   :show-inheritance:
