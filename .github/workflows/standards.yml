@@ -48,7 +48,9 @@ jobs:
             make coveralls
       - name: Commit documentation and sourcecode # transfer the new html files back into the repository
         run: |
+          git config --global user.email "walter.weinmann@gmail.com"
           git config --local user.name  ${{ github.actor }}
+          git config --local -l
           git add .
           git commit -a -m "Updating the repository GitHub html pages in the docs folder"
       - name: Push changes  # push the output folder to your repo
