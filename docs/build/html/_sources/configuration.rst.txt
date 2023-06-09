@@ -1,8 +1,8 @@
 Configuration
 =============
 
-settings.io_autonomy.toml
--------------------------
+settings.sua.toml
+-----------------
 
 This file controls the behaviour of the **SUA** library.
 

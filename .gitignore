@@ -13,6 +13,10 @@
 /docs/build/pdf/manual.rtc
 /docs/build/pdf/manual.stylelog
 /src/sua.egg-info/
-/sua/sua.egg-info/
+/src/sua/sua.egg-info/
 __pycache__
 coverage.xml
+/sua.egg-info/dependency_links.txt
+/sua.egg-info/PKG-INFO
+/sua.egg-info/SOURCES.txt
+/sua.egg-info/top_level.txt

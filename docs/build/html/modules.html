@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" />
 
     <link rel="shortcut icon" href="_static/IO-Aero_Favicon.ico"/><!-- Generated with Sphinx 7.0.1 and Furo 2023.05.20 -->
-        <title>sua package - SUA 1.0.0 documentation</title>
+        <title>sua - SUA 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=e6660623a769aa55fea372102b9bf3151b292993" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
@@ -134,7 +134,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -167,7 +167,10 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">API Documentation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="sua.html">sua package</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="sua.html">sua package</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of sua package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="sua.vector3d.html">sua.vector3d package</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">About</span></p>
 <ul>
@@ -201,75 +204,29 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <section id="sua-package">
-<h1>sua package<a class="headerlink" href="#sua-package" title="Permalink to this heading">#</a></h1>
-<section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
-</section>
-<section id="module-sua.io_config">
-<span id="sua-io-config-module"></span><h2>sua.io_config module<a class="headerlink" href="#module-sua.io_config" title="Permalink to this heading">#</a></h2>
-<p>Managing the application configuration parameters.</p>
-</section>
-<section id="module-sua.io_glob">
-<span id="sua-io-glob-module"></span><h2>sua.io_glob module<a class="headerlink" href="#module-sua.io_glob" title="Permalink to this heading">#</a></h2>
-<p>Global constants and variables.</p>
-</section>
-<section id="module-sua.io_utils">
-<span id="sua-io-utils-module"></span><h2>sua.io_utils module<a class="headerlink" href="#module-sua.io_utils" title="Permalink to this heading">#</a></h2>
-<p>Miscellaneous helper functions.</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="sua.io_utils.initialise_logger">
-<span class="sig-prename descclassname"><span class="pre">sua.io_utils.</span></span><span class="sig-name descname"><span class="pre">initialise_logger</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/sua/io_utils.html#initialise_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sua.io_utils.initialise_logger" title="Permalink to this definition">#</a></dt>
-<dd><p>Initialise the root logging functionality.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="sua.io_utils.progress_msg">
-<span class="sig-prename descclassname"><span class="pre">sua.io_utils.</span></span><span class="sig-name descname"><span class="pre">progress_msg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">is_verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/sua/io_utils.html#progress_msg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sua.io_utils.progress_msg" title="Permalink to this definition">#</a></dt>
-<dd><p>Create a progress message.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>is_verbose</strong> (<em>bool</em>) – If true, processing results are reported.</p></li>
-<li><p><strong>msg</strong> (<em>str</em>) – Progress message.</p></li>
+          <section id="sua">
+<h1>sua<a class="headerlink" href="#sua" title="Permalink to this heading">#</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="sua.html">sua package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sua.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sua.vector3d.html">sua.vector3d package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sua.vector3d.html#module-sua.vector3d">Module contents</a></li>
 </ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="sua.io_utils.progress_msg_core">
-<span class="sig-prename descclassname"><span class="pre">sua.io_utils.</span></span><span class="sig-name descname"><span class="pre">progress_msg_core</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/sua/io_utils.html#progress_msg_core"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sua.io_utils.progress_msg_core" title="Permalink to this definition">#</a></dt>
-<dd><p>Create a progress message.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>msg</strong> (<em>str</em>) – Progress message.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="sua.io_utils.terminate_fatal">
-<span class="sig-prename descclassname"><span class="pre">sua.io_utils.</span></span><span class="sig-name descname"><span class="pre">terminate_fatal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">error_msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/sua/io_utils.html#terminate_fatal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sua.io_utils.terminate_fatal" title="Permalink to this definition">#</a></dt>
-<dd><p>Terminate the application immediately.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>error_msg</strong> (<em>str</em>) – Error message.</p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="module-sua">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-sua" title="Permalink to this heading">#</a></h2>
-<p>SUA.</p>
-</section>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sua.html#module-sua">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
 </section>
 
         </article>
@@ -297,37 +254,8 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer">
+    <aside class="toc-drawer no-toc">
       
-      
-      <div class="toc-sticky toc-scroll">
-        <div class="toc-title-container">
-          <span class="toc-title">
-            On this page
-          </span>
-        </div>
-        <div class="toc-tree-container">
-          <div class="toc-tree">
-            <ul>
-<li><a class="reference internal" href="#">sua package</a><ul>
-<li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-sua.io_config">sua.io_config module</a></li>
-<li><a class="reference internal" href="#module-sua.io_glob">sua.io_glob module</a></li>
-<li><a class="reference internal" href="#module-sua.io_utils">sua.io_utils module</a><ul>
-<li><a class="reference internal" href="#sua.io_utils.initialise_logger"><code class="docutils literal notranslate"><span class="pre">initialise_logger()</span></code></a></li>
-<li><a class="reference internal" href="#sua.io_utils.progress_msg"><code class="docutils literal notranslate"><span class="pre">progress_msg()</span></code></a></li>
-<li><a class="reference internal" href="#sua.io_utils.progress_msg_core"><code class="docutils literal notranslate"><span class="pre">progress_msg_core()</span></code></a></li>
-<li><a class="reference internal" href="#sua.io_utils.terminate_fatal"><code class="docutils literal notranslate"><span class="pre">terminate_fatal()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#module-sua">Module contents</a></li>
-</ul>
-</li>
-</ul>
-
-          </div>
-        </div>
-      </div>
       
       
     </aside>

@@ -4,14 +4,15 @@ ifeq ($(OS),Windows_NT)
 	export CREATE_DIST=if not exist dist mkdir dist
 	export DELETE_DIST_BUILD=if exist build rd /s /q build
 	export DELETE_DIST_WHEEL=del /f /q dist\\*.whl
-	export DELETE_SPHINX_1=del /f /q docs\\build\\* docs\\source\\ioautonomy.rst docs\\source\\modules.rst
+	export DELETE_SPHINX_1=del /f /q docs\\build\\* docs\\source\\sua.rst docs\\source\\sua.vector3d.rst
 	export DELETE_SPHINX_2=del /f /q docs\\source\\modules.rst
 	export ENV_FOR_DYNACONF=test
 	export OPTION_NUITKA=--clang
 	export PIPENV=python -m pipenv
 	export PYTHON=python
-	export PYTHONPATH=src sua
-	export PYTHONPATH_PYTEST=src;sua
+	export PYTHONPATH=src
+	export PYTHONPATH_PYTEST=src
+	export PYTHONPATH_SUA=src\\sua
 	export SETUP=${PYTHON} src\\setup.py
 	export SPHINX_BUILDDIR=docs\\build
 	export SPHINX_SOURCEDIR=docs\\source
@@ -20,14 +21,15 @@ else
 	export CREATE_DIST=mkdir -p dist
 	export DELETE_DIST_BUILD=rm -rf build
 	export DELETE_DIST_WHEEL=rm -rf dist/*.whl
-	export DELETE_SPHINX_1=rm -rf docs/build/* docs/source/ioautonomy.rst docs/source/modules.rst
+	export DELETE_SPHINX_1=rm -rf docs/build/* docs/source/sua.rst docs/source/sua.vector3d.rst
 	export DELETE_SPHINX_2=rm -rf docs/source/modules.rst
 	export ENV_FOR_DYNACONF=test
 	export OPTION_NUITKA=--disable-ccache
 	export PIPENV=python3 -m pipenv
 	export PYTHON=python3
-	export PYTHONPATH=src sua
-	export PYTHONPATH_PYTEST=src:sua
+	export PYTHONPATH=src
+	export PYTHONPATH_PYTEST=src
+	export PYTHONPATH_SUA=src/sua
 	export SETUP=${PYTHON} src/setup.py
 	export SPHINX_BUILDDIR=docs/build
 	export SPHINX_SOURCEDIR=docs/source
@@ -49,11 +51,11 @@ endif
 ## app-dev:			   Setup the enviornment for developing apps
 app-dev: vscode
 ## dev:                Format, lint and test the code.
-dev: format lint sua
+dev: format lint pytest
 ## docs:               Check the API documentation, create and upload the user documentation.
 docs: pydocstyle sphinx
 ## final:              Format, lint and test the code, create a ddl, the documentation and a wheel.
-final: format lint docs sua wheel nuitka
+final: format lint docs pytest wheel nuitka
 ## format:             Format the code with isort, Black and docformatter.
 format: isort black docformatter
 ## lint:               Lint the code with Bandit, Flake8, Pylint and Mypy.
@@ -74,7 +76,7 @@ bandit:             ## Find common security issues with Bandit.
 	@echo PYTHONPATH=${PYTHONPATH}
 	${PIPENV} run bandit --version
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run bandit -c pyproject.toml -r ${PYTHONPATH}/src
+	${PIPENV} run bandit -c pyproject.toml -r ${PYTHONPATH}
 	@echo Info **********  End:   Bandit ***************************************
 
 # The Uncompromising Code Formatter
@@ -177,7 +179,6 @@ mypy:               ## Find typing issues with Mypy.
 nuitka:             ## Create a dynamic link library.
 	@echo Info **********  Start: nuitka **************************************
 	@echo CREATE_DIST        =${CREATE_DIST}
-	@echo MYPYPATH           =${MYPYPATH}
 	@echo PYTHON             =${PYTHON}
 	@echo PYTHONPATH         =${PYTHONPATH}
 	@echo PYTHONPATH_TEMPLATE=${PYTHONPATH}
@@ -266,7 +267,7 @@ pytest:             ## Run all tests with pytest.
 	${PIPENV} run pytest --version
 	@echo ----------------------------------------------------------------------
 	${PIPENV} run pytest --dead-fixtures --cache-clear tests
-	${PIPENV} run pytest --cache-clear --cov=src --cov=sua --cov-report term-missing:skip-covered -v tests
+	${PIPENV} run pytest --cache-clear --cov=sua --cov-report term-missing:skip-covered -v tests
 	@echo Info **********  End:   pytest **************************************
 pytest-ci:          ## Run all tests with pytest after test tool installation.
 	@echo Info **********  Start: pytest **************************************
@@ -318,7 +319,7 @@ pytest-module:      ## Run tests of specific module(s) with pytest - test_all & 
 sphinx:             ##  Create the user documentation with Sphinx.
 	@echo Info **********  Start: sphinx **************************************
 	@echo PYTHON          =${PYTHON}
-	@echo PYTHONPATH      =${PYTHONPATH}
+	@echo PYTHONPATH_SUA  =${PYTHONPATH_SUA}
 	@echo DELETE_SPHINX_1 =${DELETE_SPHINX_1}
 	@echo DELETE_SPHINX_2 =${DELETE_SPHINX_2}
 	@echo SPHINX_BUILDDIR =${SPHINX_BUILDDIR}
@@ -326,7 +327,7 @@ sphinx:             ##  Create the user documentation with Sphinx.
 	@echo ---------------------------------------------------------------------
 	${DELETE_SPHINX_1}
 	cd docs
-	${PIPENV} run sphinx-apidoc -o ${SPHINX_SOURCEDIR} ${PYTHONPATH}
+	${PIPENV} run sphinx-apidoc -o ${SPHINX_SOURCEDIR} ${PYTHONPATH_SUA}
 	${DELETE_SPHINX_2}
 	${PIPENV} run sphinx-build -M html ${SPHINX_SOURCEDIR} ${SPHINX_BUILDDIR}
 #	${PIPENV} run sphinx-build -b rinoh ${SPHINX_SOURCEDIR} ${SPHINX_BUILDDIR}/pdf
@@ -349,7 +350,6 @@ wheel:              ## Create a distribution archive with a wheel.
 	@echo Info **********  Start: wheel ***************************************
 	@echo CREATE_DIST=${CREATE_DIST}
 	@echo DELETE_DIST=${DELETE_DIST_WHEEL}
-	@echo MYPYPATH   =${MYPYPATH}
 	@echo PYTHON     =${PYTHON}
 	@echo PYTHONPATH =${PYTHONPATH}
 	@echo ---------------------------------------------------------------------

@@ -1,5 +1,5 @@
 Welcome to SUA
-======================
+==============
 
 .. toctree::
    :maxdepth: 1

@@ -11,7 +11,7 @@ from math import isclose
 
 import pytest
 
-from sua import vector3d
+from src.sua import vector3d
 
 
 def test_cross_product_1():
