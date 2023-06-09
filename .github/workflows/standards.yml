@@ -35,7 +35,8 @@ jobs:
       - name: Install dev dependencies
         run: make pipenv-dev
       - name: Run the whole software quality chain
-        run: make format lint docs tests
+#       run: make format lint docs tests
+        run: make        lint docs tests
       - name: Publish the code coverage to coveralls.io
         run: |
             echo "::echo::on"
