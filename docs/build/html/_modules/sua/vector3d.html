@@ -206,7 +206,11 @@
         </div>
         <article role="main">
           <h1>Source code for sua.vector3d</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Vector3d module.</span>
+<span></span><span class="c1"># Copyright (c) 2022-2023 IO-Aero. All rights reserved. Use of this</span>
+<span class="c1"># source code is governed by the IO-Aero License, that can</span>
+<span class="c1"># be found in the LICENSE.md file.</span>
+
+<span class="sd">&quot;&quot;&quot;Vector3d module.</span>
 
 <span class="sd">This module defines the Vector3D class, which represents a 3D vector</span>
 <span class="sd">with x, y, and z components. It provides various methods for performing</span>
@@ -237,6 +241,9 @@
 <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sin</span>
 
 
+<span class="c1"># ------------------------------------------------------------------</span>
+<span class="c1"># Class Vector3D.</span>
+<span class="c1"># ------------------------------------------------------------------</span>
 <div class="viewcode-block" id="Vector3D"><a class="viewcode-back" href="../../sua.html#sua.vector3d.Vector3D">[docs]</a><span class="k">class</span> <span class="nc">Vector3D</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Represents a 3D vector.</span>
 
@@ -246,6 +253,9 @@
 <span class="sd">        z (float): The z-component of the vector.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
+    <span class="c1"># ------------------------------------------------------------------</span>
+    <span class="c1"># Object constructor.</span>
+    <span class="c1"># ------------------------------------------------------------------</span>
     <span class="c1"># pylint: disable-next=invalid-name</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initializes a 3D vector with given x, y, and z components.</span>
@@ -263,8 +273,17 @@
         <span class="c1"># pylint: disable-next=invalid-name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="n">z</span>
 
+    <span class="c1"># ------------------------------------------------------------------</span>
+    <span class="c1"># Cross product.</span>
+    <span class="c1"># ------------------------------------------------------------------</span>
 <div class="viewcode-block" id="Vector3D.cross_product"><a class="viewcode-back" href="../../sua.html#sua.vector3d.Vector3D.cross_product">[docs]</a>    <span class="k">def</span> <span class="nf">cross_product</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s2">&quot;Vector3D&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Vector3D&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the cross product of this vector with another vector.</span>
+
+<span class="sd">        Cross product is a binary operation on two vectors in three-dimensional</span>
+<span class="sd">        space. It results in a vector that is perpendicular to both vectors.</span>
+<span class="sd">        The Vector product of two vectors, a and b, is denoted by a × b. Its</span>
+<span class="sd">        resultant vector is perpendicular to a and b. Vector products are also</span>
+<span class="sd">        called cross products.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            other (Vector3D): The other vector.</span>
@@ -275,10 +294,19 @@
         <span class="n">cross_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">other</span><span class="o">.</span><span class="n">z</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">z</span> <span class="o">*</span> <span class="n">other</span><span class="o">.</span><span class="n">y</span>
         <span class="n">cross_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">z</span> <span class="o">*</span> <span class="n">other</span><span class="o">.</span><span class="n">x</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">other</span><span class="o">.</span><span class="n">z</span>
         <span class="n">cross_z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">other</span><span class="o">.</span><span class="n">y</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">other</span><span class="o">.</span><span class="n">x</span>
+
         <span class="k">return</span> <span class="n">Vector3D</span><span class="p">(</span><span class="n">cross_x</span><span class="p">,</span> <span class="n">cross_y</span><span class="p">,</span> <span class="n">cross_z</span><span class="p">)</span></div>
 
+    <span class="c1"># ------------------------------------------------------------------</span>
+    <span class="c1"># Dot product.</span>
+    <span class="c1"># ------------------------------------------------------------------</span>
 <div class="viewcode-block" id="Vector3D.dot_product"><a class="viewcode-back" href="../../sua.html#sua.vector3d.Vector3D.dot_product">[docs]</a>    <span class="k">def</span> <span class="nf">dot_product</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s2">&quot;Vector3D&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the dot product of this vector with another vector.</span>
+
+<span class="sd">        The dot product, or inner product, of two vectors, is the sum of the</span>
+<span class="sd">        products of corresponding components. Equivalently, it is the product</span>
+<span class="sd">        of their magnitudes, times the cosine of the angle between them. The</span>
+<span class="sd">        dot product of a vector with itself is the square of its magnitude.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            other (Vector3D): The other vector.</span>
@@ -288,57 +316,106 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">other</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">other</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">z</span> <span class="o">*</span> <span class="n">other</span><span class="o">.</span><span class="n">z</span></div>
 
+    <span class="c1"># ------------------------------------------------------------------</span>
+    <span class="c1"># Magnitude.</span>
+    <span class="c1"># ------------------------------------------------------------------</span>
 <div class="viewcode-block" id="Vector3D.magnitude"><a class="viewcode-back" href="../../sua.html#sua.vector3d.Vector3D.magnitude">[docs]</a>    <span class="k">def</span> <span class="nf">magnitude</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the magnitude (length) of the vector.</span>
+
+<span class="sd">        The magnitude of a vector is the length of the vector.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            float: The magnitude of the vector.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">z</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="mf">0.5</span></div>
 
+    <span class="c1"># ------------------------------------------------------------------</span>
+    <span class="c1"># Normalize.</span>
+    <span class="c1"># ------------------------------------------------------------------</span>
 <div class="viewcode-block" id="Vector3D.normalize"><a class="viewcode-back" href="../../sua.html#sua.vector3d.Vector3D.normalize">[docs]</a>    <span class="k">def</span> <span class="nf">normalize</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Vector3D&quot;</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Normalizes the vector (converts it to a unit vector).</span>
+
+<span class="sd">        A normalized vector maintains its direction but its Length becomes 1.</span>
+<span class="sd">        The resulting vector is often called a unit vector. A vector is</span>
+<span class="sd">        normalized by dividing the vector by its own Length.</span>
 
 <span class="sd">        Returns:</span>
 <span class="sd">            The normalized vector as a new Vector3D object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">magnitude</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">magnitude</span><span class="p">()</span>
+
         <span class="k">if</span> <span class="n">magnitude</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">Vector3D</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
         <span class="k">return</span> <span class="n">Vector3D</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">/</span> <span class="n">magnitude</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">/</span> <span class="n">magnitude</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">z</span> <span class="o">/</span> <span class="n">magnitude</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Vector3D.rotate"><a class="viewcode-back" href="../../sua.html#sua.vector3d.Vector3D.rotate">[docs]</a>    <span class="k">def</span> <span class="nf">rotate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">axis</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="c1"># ------------------------------------------------------------------</span>
+    <span class="c1"># Rotate.</span>
+    <span class="c1"># ------------------------------------------------------------------</span>
+<div class="viewcode-block" id="Vector3D.rotate"><a class="viewcode-back" href="../../sua.html#sua.vector3d.Vector3D.rotate">[docs]</a>    <span class="k">def</span> <span class="nf">rotate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">axis</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;x&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Rotates the vector around a specified axis.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            angle (float): The rotation angle in degrees.</span>
-<span class="sd">            axis (str): The axis of rotation (&#39;x&#39;, &#39;y&#39;, or &#39;z&#39;).</span>
+<span class="sd">            axis (str): The axis of rotation (&#39;x&#39;, &#39;y&#39;, or &#39;z&#39;). Default is the</span>
+<span class="sd">                        &#39;x&#39; axis.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="s2">&quot;wwe old x=&quot;</span>
+            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+            <span class="o">+</span> <span class="s2">&quot; old y=&quot;</span>
+            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+            <span class="o">+</span> <span class="s2">&quot; old z=&quot;</span>
+            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+            <span class="o">+</span> <span class="s2">&quot; angle=&quot;</span>
+            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
+            <span class="o">+</span> <span class="s2">&quot; axis=&quot;</span>
+            <span class="o">+</span> <span class="n">axis</span>
+        <span class="p">)</span>
+
         <span class="n">rad_angle</span> <span class="o">=</span> <span class="n">radians</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">axis</span> <span class="o">==</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span>
+
+        <span class="n">axis_lower</span> <span class="o">=</span> <span class="n">axis</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">axis_lower</span> <span class="o">==</span> <span class="s2">&quot;x&quot;</span><span class="p">:</span>
             <span class="n">new_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">rad_angle</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">z</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">rad_angle</span><span class="p">)</span>
             <span class="n">new_z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">rad_angle</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">z</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">rad_angle</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">new_y</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="n">new_z</span>
-        <span class="k">elif</span> <span class="n">axis</span> <span class="o">==</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">axis_lower</span> <span class="o">==</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span>
             <span class="n">new_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">rad_angle</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">z</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">rad_angle</span><span class="p">)</span>
             <span class="n">new_z</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">rad_angle</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">z</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">rad_angle</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">new_x</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">z</span> <span class="o">=</span> <span class="n">new_z</span>
-        <span class="k">elif</span> <span class="n">axis</span> <span class="o">==</span> <span class="s2">&quot;z&quot;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">axis_lower</span> <span class="o">==</span> <span class="s2">&quot;z&quot;</span><span class="p">:</span>
             <span class="n">new_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">rad_angle</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">rad_angle</span><span class="p">)</span>
             <span class="n">new_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">rad_angle</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">rad_angle</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">new_x</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">new_y</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid axis. Must be &#39;x&#39;, &#39;y&#39;, or &#39;z&#39;.&quot;</span><span class="p">)</span></div>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid axis. Must be &#39;x&#39;, &#39;y&#39;, or &#39;z&#39;.&quot;</span><span class="p">)</span>
 
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="s2">&quot;wwe new x=&quot;</span>
+            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+            <span class="o">+</span> <span class="s2">&quot; new y=&quot;</span>
+            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+            <span class="o">+</span> <span class="s2">&quot; new z=&quot;</span>
+            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+    <span class="c1"># ------------------------------------------------------------------</span>
+    <span class="c1"># Translate.</span>
+    <span class="c1"># ------------------------------------------------------------------</span>
 <div class="viewcode-block" id="Vector3D.translate"><a class="viewcode-back" href="../../sua.html#sua.vector3d.Vector3D.translate">[docs]</a>    <span class="k">def</span> <span class="nf">translate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x_offset</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y_offset</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">z_offset</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Translates the vector by the specified offsets.</span>
+
+<span class="sd">        Translation by a vector refers to the movement of one or more points</span>
+<span class="sd">        of a space in a particular direction by a specified amount.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            x_offset (float): The offset along the x-axis.</span>

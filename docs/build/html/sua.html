@@ -273,6 +273,11 @@ dot product, cross product, normalization, rotation, and translation.</p>
 <dt class="sig sig-object py" id="sua.vector3d.Vector3D.cross_product">
 <span class="sig-name descname"><span class="pre">cross_product</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#sua.vector3d.Vector3D" title="sua.vector3d.Vector3D"><span class="pre">Vector3D</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#sua.vector3d.Vector3D" title="sua.vector3d.Vector3D"><span class="pre">Vector3D</span></a></span></span><a class="reference internal" href="_modules/sua/vector3d.html#Vector3D.cross_product"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sua.vector3d.Vector3D.cross_product" title="Permalink to this definition">#</a></dt>
 <dd><p>Calculates the cross product of this vector with another vector.</p>
+<p>Cross product is a binary operation on two vectors in three-dimensional
+space. It results in a vector that is perpendicular to both vectors.
+The Vector product of two vectors, a and b, is denoted by a × b. Its
+resultant vector is perpendicular to a and b. Vector products are also
+called cross products.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>other</strong> (<a class="reference internal" href="#sua.vector3d.Vector3D" title="sua.vector3d.Vector3D"><em>Vector3D</em></a>) – The other vector.</p>
@@ -290,6 +295,10 @@ dot product, cross product, normalization, rotation, and translation.</p>
 <dt class="sig sig-object py" id="sua.vector3d.Vector3D.dot_product">
 <span class="sig-name descname"><span class="pre">dot_product</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#sua.vector3d.Vector3D" title="sua.vector3d.Vector3D"><span class="pre">Vector3D</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/sua/vector3d.html#Vector3D.dot_product"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sua.vector3d.Vector3D.dot_product" title="Permalink to this definition">#</a></dt>
 <dd><p>Calculates the dot product of this vector with another vector.</p>
+<p>The dot product, or inner product, of two vectors, is the sum of the
+products of corresponding components. Equivalently, it is the product
+of their magnitudes, times the cosine of the angle between them. The
+dot product of a vector with itself is the square of its magnitude.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>other</strong> (<a class="reference internal" href="#sua.vector3d.Vector3D" title="sua.vector3d.Vector3D"><em>Vector3D</em></a>) – The other vector.</p>
@@ -307,6 +316,7 @@ dot product, cross product, normalization, rotation, and translation.</p>
 <dt class="sig sig-object py" id="sua.vector3d.Vector3D.magnitude">
 <span class="sig-name descname"><span class="pre">magnitude</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/sua/vector3d.html#Vector3D.magnitude"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sua.vector3d.Vector3D.magnitude" title="Permalink to this definition">#</a></dt>
 <dd><p>Calculates the magnitude (length) of the vector.</p>
+<p>The magnitude of a vector is the length of the vector.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The magnitude of the vector.</p>
@@ -321,6 +331,9 @@ dot product, cross product, normalization, rotation, and translation.</p>
 <dt class="sig sig-object py" id="sua.vector3d.Vector3D.normalize">
 <span class="sig-name descname"><span class="pre">normalize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#sua.vector3d.Vector3D" title="sua.vector3d.Vector3D"><span class="pre">Vector3D</span></a></span></span><a class="reference internal" href="_modules/sua/vector3d.html#Vector3D.normalize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sua.vector3d.Vector3D.normalize" title="Permalink to this definition">#</a></dt>
 <dd><p>Normalizes the vector (converts it to a unit vector).</p>
+<p>A normalized vector maintains its direction but its Length becomes 1.
+The resulting vector is often called a unit vector. A vector is
+normalized by dividing the vector by its own Length.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The normalized vector as a new Vector3D object.</p>
@@ -330,13 +343,14 @@ dot product, cross product, normalization, rotation, and translation.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="sua.vector3d.Vector3D.rotate">
-<span class="sig-name descname"><span class="pre">rotate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/sua/vector3d.html#Vector3D.rotate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sua.vector3d.Vector3D.rotate" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">rotate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'x'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/sua/vector3d.html#Vector3D.rotate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sua.vector3d.Vector3D.rotate" title="Permalink to this definition">#</a></dt>
 <dd><p>Rotates the vector around a specified axis.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>angle</strong> (<em>float</em>) – The rotation angle in degrees.</p></li>
-<li><p><strong>axis</strong> (<em>str</em>) – The axis of rotation (‘x’, ‘y’, or ‘z’).</p></li>
+<li><p><strong>axis</strong> (<em>str</em>) – The axis of rotation (‘x’, ‘y’, or ‘z’). Default is the
+‘x’ axis.</p></li>
 </ul>
 </dd>
 </dl>
@@ -346,6 +360,8 @@ dot product, cross product, normalization, rotation, and translation.</p>
 <dt class="sig sig-object py" id="sua.vector3d.Vector3D.translate">
 <span class="sig-name descname"><span class="pre">translate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">z_offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/sua/vector3d.html#Vector3D.translate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#sua.vector3d.Vector3D.translate" title="Permalink to this definition">#</a></dt>
 <dd><p>Translates the vector by the specified offsets.</p>
+<p>Translation by a vector refers to the movement of one or more points
+of a space in a particular direction by a specified amount.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
