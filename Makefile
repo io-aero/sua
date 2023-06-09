@@ -330,7 +330,6 @@ sphinx:             ##  Create the user documentation with Sphinx.
 	${PIPENV} run sphinx-apidoc -o ${SPHINX_SOURCEDIR} ${PYTHONPATH_SUA}
 	${DELETE_SPHINX_2}
 	${PIPENV} run sphinx-build -M html ${SPHINX_SOURCEDIR} ${SPHINX_BUILDDIR}
-#	${PIPENV} run sphinx-build -b rinoh ${SPHINX_SOURCEDIR} ${SPHINX_BUILDDIR}/pdf
 	cd ..
 	@echo Info **********  End:   sphinx **************************************
 

@@ -33,23 +33,27 @@ class Vector3D:
     """Represents a 3D vector.
 
     Attributes:
-        x_comp (float): The x-component of the vector.
-        y_comp (float): The y-component of the vector.
-        z_comp (float): The z-component of the vector.
+        x (float): The x-component of the vector.
+        y (float): The y-component of the vector.
+        z (float): The z-component of the vector.
     """
 
-    def __init__(self, x_comp: float, y_comp: float, z_comp: float):
+    # pylint: disable-next=invalid-name
+    def __init__(self, x: float, y: float, z: float):
         """Initializes a 3D vector with given x, y, and z components.
 
         Args:
 
-            x_comp: The x-component of the vector.
-            y_comp: The y-component of the vector.
-            z_comp: The z-component of the vector.
+            x: The x-component of the vector.
+            y: The y-component of the vector.
+            z: The z-component of the vector.
         """
-        self.x_comp = x_comp
-        self.y_comp = y_comp
-        self.z_comp = z_comp
+        # pylint: disable-next=invalid-name
+        self.x = x
+        # pylint: disable-next=invalid-name
+        self.y = y
+        # pylint: disable-next=invalid-name
+        self.z = z
 
     def cross_product(self, other: "Vector3D") -> "Vector3D":
         """Calculates the cross product of this vector with another vector.
@@ -60,9 +64,9 @@ class Vector3D:
         Returns:
             Vector3D: The cross product of the two vectors.
         """
-        cross_x = self.y_comp * other.z_comp - self.z_comp * other.y_comp
-        cross_y = self.z_comp * other.x_comp - self.x_comp * other.z_comp
-        cross_z = self.x_comp * other.y_comp - self.y_comp * other.x_comp
+        cross_x = self.y * other.z - self.z * other.y
+        cross_y = self.z * other.x - self.x * other.z
+        cross_z = self.x * other.y - self.y * other.x
         return Vector3D(cross_x, cross_y, cross_z)
 
     def dot_product(self, other: "Vector3D") -> float:
@@ -74,11 +78,7 @@ class Vector3D:
         Returns:
             float: The dot product of the two vectors.
         """
-        return (
-            self.x_comp * other.x_comp
-            + self.y_comp * other.y_comp
-            + self.z_comp * other.z_comp
-        )
+        return self.x * other.x + self.y * other.y + self.z * other.z
 
     def magnitude(self) -> float:
         """Calculates the magnitude (length) of the vector.
@@ -86,7 +86,7 @@ class Vector3D:
         Returns:
             float: The magnitude of the vector.
         """
-        return (self.x_comp**2 + self.y_comp**2 + self.z_comp**2) ** 0.5
+        return (self.x**2 + self.y**2 + self.z**2) ** 0.5
 
     def normalize(self) -> "Vector3D":
         """Normalizes the vector (converts it to a unit vector).
@@ -98,9 +98,9 @@ class Vector3D:
         if magnitude == 0:
             return Vector3D(0, 0, 0)
         return Vector3D(
-            self.x_comp / magnitude,
-            self.y_comp / magnitude,
-            self.z_comp / magnitude,
+            self.x / magnitude,
+            self.y / magnitude,
+            self.z / magnitude,
         )
 
     def rotate(self, angle: float, axis: str) -> None:
@@ -112,20 +112,20 @@ class Vector3D:
         """
         rad_angle = radians(angle)
         if axis == "x":
-            new_y = self.y_comp * cos(rad_angle) - self.z_comp * sin(rad_angle)
-            new_z = self.y_comp * sin(rad_angle) + self.z_comp * cos(rad_angle)
-            self.y_comp = new_y
-            self.z_comp = new_z
+            new_y = self.y * cos(rad_angle) - self.z * sin(rad_angle)
+            new_z = self.y * sin(rad_angle) + self.z * cos(rad_angle)
+            self.y = new_y
+            self.z = new_z
         elif axis == "y":
-            new_x = self.x_comp * cos(rad_angle) + self.z_comp * sin(rad_angle)
-            new_z = -self.x_comp * sin(rad_angle) + self.z_comp * cos(rad_angle)
-            self.x_comp = new_x
-            self.z_comp = new_z
+            new_x = self.x * cos(rad_angle) + self.z * sin(rad_angle)
+            new_z = -self.x * sin(rad_angle) + self.z * cos(rad_angle)
+            self.x = new_x
+            self.z = new_z
         elif axis == "z":
-            new_x = self.x_comp * cos(rad_angle) - self.y_comp * sin(rad_angle)
-            new_y = self.x_comp * sin(rad_angle) + self.y_comp * cos(rad_angle)
-            self.x_comp = new_x
-            self.y_comp = new_y
+            new_x = self.x * cos(rad_angle) - self.y * sin(rad_angle)
+            new_y = self.x * sin(rad_angle) + self.y * cos(rad_angle)
+            self.x = new_x
+            self.y = new_y
         else:
             raise ValueError("Invalid axis. Must be 'x', 'y', or 'z'.")
 
@@ -137,6 +137,6 @@ class Vector3D:
             y_offset (float): The offset along the y-axis.
             z_offset (float): The offset along the z-axis.
         """
-        self.x_comp += x_offset
-        self.y_comp += y_offset
-        self.z_comp += z_offset
+        self.x += x_offset
+        self.y += y_offset
+        self.z += z_offset
