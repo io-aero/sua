@@ -48,7 +48,7 @@ endif
 ## ------------------------------------------------------------------------------
 ## help:               Show this help.
 ## -----------------------------------------------------------------------------
-## app-dev:			   Setup the enviornment for developing apps
+## app-dev:			   Setup the environment for developing apps
 app-dev: vscode
 ## dev:                Format, lint and test the code.
 dev: format lint pytest
@@ -92,7 +92,7 @@ black:              ## Format the code with Black.
 	@echo Info **********  End:   black ****************************************
 
 # VS Code
-# Setup the enviornment to develop apps using the sua library
+# Setup the environment to develop apps using the sua library
 # Configuration file: none
 vscode:
 	@echo Info **********  Start: Setup Code Enviornment ***********************
@@ -178,14 +178,14 @@ mypy:               ## Find typing issues with Mypy.
 # https://github.com/Nuitka/Nuitka
 nuitka:             ## Create a dynamic link library.
 	@echo Info **********  Start: nuitka **************************************
-	@echo CREATE_DIST        =${CREATE_DIST}
-	@echo PYTHON             =${PYTHON}
-	@echo PYTHONPATH         =${PYTHONPATH}
-	@echo PYTHONPATH_TEMPLATE=${PYTHONPATH}
+	@echo CREATE_DIST   =${CREATE_DIST}
+	@echo PYTHON        =${PYTHON}
+	@echo PYTHONPATH    =${PYTHONPATH}
+	@echo PYTHONPATH_SUA=${PYTHONPATH}
 	${PIPENV} run ${PYTHON} -m nuitka --version
 	@echo ---------------------------------------------------------------------
 	${CREATE_DIST}
-	${PIPENV} run ${PYTHON} -m nuitka ${OPTION_NUITKA} --include-package=sua --module ${PYTHONPATH} --no-pyi-file --output-dir=dist --remove-output
+	${PIPENV} run ${PYTHON} -m nuitka ${OPTION_NUITKA} --include-package=sua --module ${PYTHONPATH_SUA} --no-pyi-file --output-dir=dist --remove-output
 	@echo Info **********  End:   nuitka **************************************
 
 # pip is the package installer for Python.
