@@ -1,10 +1,10 @@
-src package
-===========
+sua.vector3d package
+====================
 
 Module contents
 ---------------
 
-.. automodule:: src
+.. automodule:: sua.vector3d
    :members:
    :undoc-members:
    :show-inheritance:
