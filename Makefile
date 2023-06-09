@@ -7,7 +7,7 @@ ifeq ($(OS),Windows_NT)
 	export DELETE_SPHINX_1=del /f /q docs\\build\\* docs\\source\\sua.rst docs\\source\\sua.vector3d.rst
 	export DELETE_SPHINX_2=del /f /q docs\\source\\modules.rst
 	export ENV_FOR_DYNACONF=test
-	export OPTION_NUITKA=--clang
+	export OPTION_NUITKA=
 	export PIPENV=python -m pipenv
 	export PYTHON=python
 	export PYTHONPATH=src
@@ -266,8 +266,8 @@ pytest:             ## Run all tests with pytest.
 	@echo Info **********  Start: pytest **************************************
 	${PIPENV} run pytest --version
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run pytest --dead-fixtures --cache-clear tests
-	${PIPENV} run pytest --cache-clear --cov=sua --cov-report term-missing:skip-covered -v tests
+	${PIPENV} run pytest --dead-fixtures tests
+	${PIPENV} run pytest --cache-clear --cov=${PYTHONPATH_PYTEST} --cov-report term-missing:skip-covered -v tests
 	@echo Info **********  End:   pytest **************************************
 pytest-ci:          ## Run all tests with pytest after test tool installation.
 	@echo Info **********  Start: pytest **************************************
@@ -280,25 +280,25 @@ pytest-ci:          ## Run all tests with pytest after test tool installation.
 	${PIPENV} run pytest --version
 	@echo ----------------------------------------------------------------------
 	${PIPENV} run pytest --dead-fixtures tests
-	${PIPENV} run pytest --cache-clear --cov=${PYTHONPATH} --cov-report term-missing:skip-covered -v tests
+	${PIPENV} run pytest --cache-clear --cov=${PYTHONPATH_PYTEST} --cov-report term-missing:skip-covered -v tests
 	@echo Info **********  End:   pytest **************************************
 pytest-first-issue: ## Run all tests with pytest until the first issue occurs.
 	@echo Info **********  Start: pytest **************************************
 	${PIPENV} run pytest --version
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run pytest --cache-clear --cov=${PYTHONPATH} --cov-report term-missing:skip-covered -rP -v -x tests
+	${PIPENV} run pytest --cache-clear --cov=${PYTHONPATH_PYTEST} --cov-report term-missing:skip-covered -rP -v -x tests
 	@echo Info **********  End:   pytest **************************************
 pytest-issue:       ## Run only the tests with pytest which are marked with 'issue'.
 	@echo Info **********  Start: pytest **************************************
 	${PIPENV} run pytest --version
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run pytest --cache-clear --capture=no --cov=${PYTHONPATH} --cov-report term-missing:skip-covered -m issue -rP -v -x tests
+	${PIPENV} run pytest --cache-clear --capture=no --cov=${PYTHONPATH_PYTEST} --cov-report term-missing:skip-covered -m issue -rP -v -x tests
 	@echo Info **********  End:   pytest **************************************
 pytest-module:      ## Run tests of specific module(s) with pytest - test_all & test_cfg_cls_setup & test_db_cls.
 	@echo Info **********  Start: pytest **************************************
 	${PIPENV} run pytest --version
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run pytest --cache-clear --cov=${PYTHONPATH} --cov-report term-missing:skip-covered -v tests/test_db_cls_action.py
+	${PIPENV} run pytest --cache-clear --cov=${PYTHONPATH_PYTEST} --cov-report term-missing:skip-covered -v tests/test_db_cls_action.py
 	@echo Info **********  End:   pytest **************************************
 
 # sphinx: Python Documentation Generator
@@ -330,6 +330,7 @@ sphinx:             ##  Create the user documentation with Sphinx.
 	${PIPENV} run sphinx-apidoc -o ${SPHINX_SOURCEDIR} ${PYTHONPATH_SUA}
 	${DELETE_SPHINX_2}
 	${PIPENV} run sphinx-build -M html ${SPHINX_SOURCEDIR} ${SPHINX_BUILDDIR}
+#	${PIPENV} run sphinx-build -b rinoh ${SPHINX_SOURCEDIR} ${SPHINX_BUILDDIR}/pdf
 	cd ..
 	@echo Info **********  End:   sphinx **************************************
 

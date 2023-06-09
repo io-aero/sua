@@ -23,23 +23,20 @@ jobs:
         python-version: ["3.10"]
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 1  # no history, just HEAD
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v3
         with:
           python-version: ${{ matrix.python-version }}
+      - name: Install Step - Necessary system software
+        run: |
+            sudo apt-get update -y
       - name: Install dev dependencies
         run: make pipenv-dev
-      - name: Install Step - Necessary system software (incl. GDAL & Rasterio)
-        run: |
-            sudo add-apt-repository ppa:ubuntugis/ppa
-            sudo apt-get update -y
-            sudo apt-get install -y gdal-bin \
-                                    libgdal-dev \
-                                    python-numpy
-            python3 -m pipenv run pip install sua
-            python3 -m pipenv run pip freeze
       - name: Run the whole software quality chain
-        run: make format lint docs tests
+#       run: make format lint docs tests
+        run: make        lint docs tests
       - name: Publish the code coverage to coveralls.io
         run: |
             echo "::echo::on"
