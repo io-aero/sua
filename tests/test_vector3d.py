@@ -64,6 +64,16 @@ def test_cross_product_5():
     assert isclose(cross_product.z, 0)
 
 
+def test_cross_product_6():
+    """Test the cross product calculation between two Vector3D objects."""
+    vector1 = vector3d.Vector3D(0, 0, 0)
+    vector2 = vector3d.Vector3D(0, 0, 1)
+    cross_product = vector1.cross_product(vector2)
+    assert isclose(cross_product.x, 0)
+    assert isclose(cross_product.y, 0)
+    assert isclose(cross_product.z, 0)
+
+
 def test_dot_product_1():
     """Test the dot product calculation between two Vector3D objects."""
     vector1 = vector3d.Vector3D(1, 2, 3)
@@ -78,6 +88,13 @@ def test_dot_product_2():
     assert isclose(vector1.dot_product(vector2), 26)
 
 
+def test_dot_product_3():
+    """Test the dot product calculation between two Vector3D objects."""
+    vector1 = vector3d.Vector3D(0, 0, 0)
+    vector2 = vector3d.Vector3D(3, 4, 5)
+    assert isclose(vector1.dot_product(vector2), 0)
+
+
 def test_magnitude_1():
     """Test the magnitude calculation of a Vector3D object."""
     vector = vector3d.Vector3D(3, 4, 5)
@@ -88,6 +105,12 @@ def test_magnitude_2():
     """Test the magnitude calculation of a Vector3D object."""
     vector = vector3d.Vector3D(3, 2, -1)
     assert isclose(vector.magnitude(), 3.7416573867739413)
+
+
+def test_magnitude_3():
+    """Test the magnitude calculation of a Vector3D object."""
+    vector = vector3d.Vector3D(0, 0, 0)
+    assert isclose(vector.magnitude(), 0)
 
 
 def test_normalize_0():
@@ -154,6 +177,42 @@ def test_rotate_4():
     assert isclose(vector.z, 0)
 
 
+def test_rotate_5():
+    """Test the rotation of a Vector3D object."""
+    vector = vector3d.Vector3D(0, 0, 0)
+    vector.rotate(90, "y")
+    assert isclose(vector.x, 0)
+    assert isclose(vector.y, 0)
+    assert isclose(vector.z, 0)
+
+
+def test_rotate_6():
+    """Test the rotation of a Vector3D object."""
+    vector = vector3d.Vector3D(0, 0, 1)
+    vector.rotate(0, "x")
+    assert isclose(vector.x, 0)
+    assert isclose(vector.y, 0)
+    assert isclose(vector.z, 1)
+
+
+def test_rotate_7():
+    """Test the rotation of a Vector3D object."""
+    vector = vector3d.Vector3D(0, 0, 1)
+    vector.rotate(0, "y")
+    assert isclose(vector.x, 0)
+    assert isclose(vector.y, 0)
+    assert isclose(vector.z, 1)
+
+
+def test_rotate_8():
+    """Test the rotation of a Vector3D object."""
+    vector = vector3d.Vector3D(0, 0, 1)
+    vector.rotate(0, "z")
+    assert isclose(vector.x, 0)
+    assert isclose(vector.y, 0)
+    assert isclose(vector.z, 1)
+
+
 def test_translate_1():
     """Test the translation of a Vector3D object."""
     vector = vector3d.Vector3D(1, 2, 3)
@@ -179,3 +238,11 @@ def test_translate_3():
     assert vector.x == -5
     assert vector.y == -7
     assert vector.z == -9
+
+def test_translate_4():
+    """Test the translation of a Vector3D object."""
+    vector = vector3d.Vector3D(0, 0, 0)
+    vector.translate(-4, -5, -6)
+    assert vector.x == -4
+    assert vector.y == -5
+    assert vector.z == -6
