@@ -1,7 +1,0 @@
-sua
-===
-
-.. toctree::
-   :maxdepth: 4
-
-   sua
