@@ -34,9 +34,6 @@ jobs:
         run: |
             sudo add-apt-repository ppa:ubuntugis/ppa
             sudo apt-get update -y
-            sudo apt-get install -y gdal-bin \
-                                    libgdal-dev \
-                                    python-numpy
             python3 -m pipenv run pip install sua
             python3 -m pipenv run pip freeze
       - name: Compile the Python code
