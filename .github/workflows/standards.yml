@@ -52,7 +52,7 @@ jobs:
           git config --local user.name  ${{ github.actor }}
           # git config --local -l
           git add .
-          git subtree push --prefix docs/build/html origin gh-pages
+          # git subtree push --prefix docs/build/html origin gh-pages
           git commit -a -m "Updating by standards.yml (GitHub Actions)"
       - name: Push changes  # push the output folder to your repo
         uses: ad-m/github-push-action@master
