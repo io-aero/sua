@@ -1,5 +1,14 @@
 # SUA - Small Unmanned Aircraft (Beard & McLain)
 
+---
+
+![Travis (.com)](https://img.shields.io/travis/com/io-aero/sua.svg?branch=master)
+![GitHub release](https://img.shields.io/github/release/io-aero/sua.svg)
+![GitHub Release Date](https://img.shields.io/github/release-date/io-aero/sua.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/io-aero/sua/1.0.0.svg)
+
+---
+
 A flight simulator for an unmanned aircraft (UA) based on the book [Small Unmanned Aircraft](https://github.com/randybeard/uavbook) by Beard and McLain done in Python and Rust.
 
 ## Directory and File Structure of this Repository
