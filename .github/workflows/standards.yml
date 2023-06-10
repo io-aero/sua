@@ -36,8 +36,7 @@ jobs:
       - name: Install dev dependencies
         run: make pipenv-dev
       - name: Run the whole software quality chain
-        # run: make format lint docs pytest wheel nuitka
-        run: make lint docs pytest
+        run: make format lint docs pytest wheel nuitka
       - name: Publish the code coverage to coveralls.io
         run: |
             echo "::echo::on"
@@ -47,15 +46,3 @@ jobs:
             echo "Current version of Ubuntu: $(lsb_release -a)"
             echo "================================================================================"
             make coveralls
-      - name: Commit documentation and sourcecode # transfer the new html files back into the repository
-        run: |
-          if ! git diff-index --quiet HEAD --; then 
-            git config --local user.name  ${{ github.actor }}
-            git add .
-            git commit -a -m "Updating by standards.yml (GitHub Actions)"
-          fi
-      - name: Push changes  # push the output folder to your repo
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          force: true
