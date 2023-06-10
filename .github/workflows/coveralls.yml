@@ -2,7 +2,7 @@ name: Standards
 
 on:
   pull_request:
-    types: [opened, reopened]
+    types: [closed]
     branches: [ 'main' ]
 
 env:
@@ -35,8 +35,14 @@ jobs:
             sudo apt-get update -y
       - name: Install dev dependencies
         run: make pipenv-dev
-      - name: Run the whole software quality chain
+      - name: Run the tests
+        run: make pytest
+      - name: Publish the code coverage to coveralls.io
         run: |
-            # make format lint docs pytest wheel nuitka
-            make          lint docs pytest wheel nuitka
-            git reset
+            echo "::echo::on"
+            echo "================================================================================"
+            echo "Current version of Python3: $(python --version)"
+            echo "Current version of pip3: $(pip --version || true)"
+            echo "Current version of Ubuntu: $(lsb_release -a)"
+            echo "================================================================================"
+            make coveralls
