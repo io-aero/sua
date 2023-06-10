@@ -1,4 +1,4 @@
-name: Standards
+name: Coveralls
 
 on:
   pull_request:
@@ -11,9 +11,7 @@ env:
 jobs:
   standards:
     # --------------------------------------------------------------------------
-    # Perform all development-specific tools, including formatting, static code
-    # analysis, style enforcement and documentation creation. Changes in the code
-    # or in the documentation are also replicated in the repository.
+    # Create and store the coveralls results.
     # --------------------------------------------------------------------------
     name: OS ${{ matrix.os }} - Python ${{ matrix.python-version }} - Development Standards
     runs-on: ${{ matrix.os }}
@@ -36,7 +34,9 @@ jobs:
       - name: Install dev dependencies
         run: make pipenv-dev
       - name: Run the tests
-        run: make pytest
+        run: |
+          git checkout main
+          make pytest
       - name: Publish the code coverage to coveralls.io
         run: |
             echo "::echo::on"
