@@ -2,7 +2,7 @@
 
 ---
 
-![Travis (.com)](https://img.shields.io/travis/com/io-aero/sua.svg?branch=master)
+![Coveralls github](https://img.shields.io/coveralls/github/io-aero/sua.svg)
 ![GitHub release](https://img.shields.io/github/release/io-aero/sua.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/io-aero/sua.svg)
 ![GitHub commits since latest release](https://img.shields.io/github/commits-since/io-aero/sua/1.0.0.svg)
