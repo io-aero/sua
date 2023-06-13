@@ -25,7 +25,7 @@ jobs:
         with:
           fetch-depth: 1  # no history, just HEAD
       - name: Set up Rust ${{ matrix.rust-version }}
-        uses: actions/setup-rust-action@v1
+        uses: hecrj/setup-rust-action@v1
         with:
           rust-version: ${{ matrix.rust }}
       - name: Install Step - Necessary system software
@@ -41,5 +41,5 @@ jobs:
             echo "Current version of Rust:   $(rustc --version)"
             echo "Current version of Ubuntu: $(lsb_release -a)"
             echo "================================================================================"
-            make final-rust
+            make isort black lint-python tests-python docs-python build-python
             git reset
