@@ -16,7 +16,7 @@ long_description = (here / "README.md").read_text(encoding="utf-8")
 
 setup(
     name="sua",
-    version="1.0.0",
+    version="1.0.1",
     description="Flight Simulator",
     author="IO-Aero Team",
     author_email="info@io-aero.com",

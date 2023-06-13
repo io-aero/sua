@@ -13,6 +13,7 @@ ifeq ($(OS),Windows_NT)
 	export PYTHONPATH=src
 	export PYTHONPATH_PYTEST=src
 	export PYTHONPATH_SUA=src\\sua
+	export PYTHONPATH_TESTS=tests
 	export SETUP=${PYTHON} src\\setup.py
 	export SPHINX_BUILDDIR=docs\\build
 	export SPHINX_SOURCEDIR=docs\\source
@@ -30,6 +31,7 @@ else
 	export PYTHONPATH=src
 	export PYTHONPATH_PYTEST=src
 	export PYTHONPATH_SUA=src/sua
+	export PYTHONPATH_TESTS=tests
 	export SETUP=${PYTHON} src/setup.py
 	export SPHINX_BUILDDIR=docs/build
 	export SPHINX_SOURCEDIR=docs/source
@@ -39,29 +41,59 @@ endif
 ##                                                                            .
 ## =============================================================================
 ## SUA - Template Library - make Documentation.
-##             -------------------------------------------------------------
-##             The purpose of this Makefile is to support the whole software
-##             development process for sua. It contains also the
-##             necessary tools for the CI activities.
-##             -------------------------------------------------------------
-##             The available make commands are:
+##       -----------------------------------------------------------------------
+##       The purpose of this Makefile is to support the whole software
+##       development process for sua. It contains also the necessary
+##       tools for the CI activities.
+##       -------------------------------------------------------------
+##       The available make commands are:
 ## ------------------------------------------------------------------------------
 ## help:               Show this help.
 ## -----------------------------------------------------------------------------
-## app-dev:			   Setup the environment for developing apps
+## app-dev:            Setup the environment for developing apps.
 app-dev: vscode
+## build:              Build the application.
+build: build-python build-rust
+## build-python        Build the Python application.
+build-python: compileall nuitka wheel
+## build-rust:         Build the Rust application.
+build-rust: cargo-build
 ## dev:                Format, lint and test the code.
-dev: format lint pytest
-## docs:               Check the API documentation, create and upload the user documentation.
-docs: pydocstyle sphinx
-## final:              Format, lint and test the code, create a ddl, the documentation and a wheel.
-final: format lint docs pytest wheel nuitka
-## format:             Format the code with isort, Black and docformatter.
-format: isort black docformatter
-## lint:               Lint the code with Bandit, Flake8, Pylint and Mypy.
-lint: bandit flake8 pylint mypy
-## tests:              Run all tests with pytest.
-tests: pytest
+dev: dev-python dev-rust
+## dev-python          Format, lint and test the Python code.
+dev-python: format-python lint-python tests-python
+## dev-rust:           Format, lint and test the Rust code.
+dev-rust: format-rust lint-rust tests-rust
+## docs:               Check the documentation.
+docs: docs-python docs-rust
+## docs-python:        Check the API documentation, create and upload the Python user documentation.
+docs-python: pydocstyle sphinx
+## docs-rust:          Check the API documentation, create and upload the Rust user documentation.
+docs-rust: cargo-docs
+## final:              Format, lint and test the codel.
+final: final-python final-rust
+## final_python:       Format, lint and test the Python code, create a ddl, the documentation and a wheel.
+final-python: dev-python docs-python build-python
+## final_rust:         Format, lint and test the Rust code, create the documentation.
+final-rust: dev-rust docs-rust build-rust
+## format:             Format the Python code and the Rust code.
+format: format-python format-rust
+## format-python:      Format the Python code with isort, Black and docformatter.
+format-python: isort black docformatter
+## format-rust:        Format the Rust code with rustfmt.
+format-rust: cargo-fmt
+## lint:               Lint the Python code and the Rust code.
+lint: lint-python lint-rust
+## lint-python:        Lint the Python code with Bandit, Flake8, Pylint and Mypy.
+lint-python: bandit flake8 pylint mypy
+## lint-rust:          Lint the Rust code with cargo clippy.
+lint-rust: cargo-clippy
+## tests:              Run all Python tests and Rust tests.
+tests: tests-python tests-rust
+## tests-python:       Run all Python tests with pytest.
+tests-python: pytest
+## tests-rust:         Run all Rust tests with cargo test.
+tests-rust: cargo-test
 ## -----------------------------------------------------------------------------
 
 help:
@@ -72,8 +104,9 @@ help:
 # Configuration file: none
 bandit:             ## Find common security issues with Bandit.
 	@echo Info **********  Start: Bandit ***************************************
-	@echo PYTHON    =${PYTHON}
-	@echo PYTHONPATH=${PYTHONPATH}
+	@echo PYTHON          =${PYTHON}
+	@echo PYTHONPATH      =${PYTHONPATH}
+	@echo PYTHONPATH_TESTS=${PYTHONPATH_TESTS}
 	${PIPENV} run bandit --version
 	@echo ----------------------------------------------------------------------
 	${PIPENV} run bandit -c pyproject.toml -r ${PYTHONPATH}
@@ -82,25 +115,45 @@ bandit:             ## Find common security issues with Bandit.
 # The Uncompromising Code Formatter
 # https://github.com/psf/black
 # Configuration file: pyproject.toml
-black:              ## Format the code with Black.
+black:              ## Format the Python code with Black.
 	@echo Info **********  Start: black ****************************************
-	@echo PYTHON    =${PYTHON}
-	@echo PYTHONPATH=${PYTHONPATH}
+	@echo PYTHON          =${PYTHON}
+	@echo PYTHONPATH      =${PYTHONPATH}
+	@echo PYTHONPATH_TESTS=${PYTHONPATH_TESTS}
 	${PIPENV} run black --version
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run black ${PYTHONPATH}
+	${PIPENV} run black ${PYTHONPATH} ${PYTHONPATH_TESTS}
 	@echo Info **********  End:   black ****************************************
 
-# VS Code
-# Setup the environment to develop apps using the sua library
-# Configuration file: none
-vscode:
-	@echo Info **********  Start: Setup Code Enviornment ***********************
-	@echo PYTHON    =${PYTHON}
-	@echo PYTHONPATH=${PYTHONPATH}
-	${PYTHON} --version
-	@echo ---------------------------------------------------------------------
-	${VSCODE} .
+cargo-build:        ## Build the Rust application.
+	@echo Info **********  Start: build ***************************************
+	cargo build
+	@echo Info **********  End:   build ***************************************
+
+cargo-clippy:       ## Lint Rust code with clippy.
+	@echo Info **********  Start: clippy **************************************
+	cargo clippy --version
+	@echo ----------------------------------------------------------------------
+	cargo clippy --all-targets --all-features -- -D warnings
+	@echo Info **********  End:   clippy **************************************
+
+cargo-docs:         ## Document Rust code with doc.
+	@echo Info **********  Start: doc *****************************************
+	cargo doc
+	@echo Info **********  End:   doc *****************************************
+
+cargo-fmt:          ## Format Rust code with rustfmt.
+	@echo Info **********  Start: rustfmt *************************************
+	cargo fmt --version
+	@echo ----------------------------------------------------------------------
+	cargo fmt --check --verbose
+	@echo Info **********  End:   rustfmt *************************************
+
+cargo-test:         ## Test Rust code with test.
+	@echo Info **********  Start: test ****************************************
+	cargo test
+	@echo Info **********  End:   test ****************************************
+
 # Byte-compile Python libraries
 # https://docs.python.org/3/library/compileall.html
 # Configuration file: none
@@ -129,7 +182,7 @@ coveralls:          ## Run all the tests and upload the coverage data to coveral
 # Formats docstrings to follow PEP 257
 # https://github.com/PyCQA/docformatter
 # Configuration file: none
-docformatter:       ## Format the docstrings with docformatter.
+docformatter:       ## Format the docstrings in the Python code with docformatter.
 	@echo Info **********  Start: docformatter ********************************
 	@echo PYTHON        =${PYTHON}
 	@echo PYTHONPATH    =${PYTHONPATH}
@@ -143,8 +196,9 @@ docformatter:       ## Format the docstrings with docformatter.
 # Configuration file: cfg.cfg
 flake8:             ## Enforce the Python Style Guides with Flake8.
 	@echo Info **********  Start: Flake8 **************************************
-	@echo PYTHON    =${PYTHON}
-	@echo PYTHONPATH=${PYTHONPATH}
+	@echo PYTHON          =${PYTHON}
+	@echo PYTHONPATH      =${PYTHONPATH}
+	@echo PYTHONPATH_TESTS=${PYTHONPATH_TESTS}
 	${PIPENV} run flake8 --version
 	@echo ----------------------------------------------------------------------
 	${PIPENV} run flake8 ${PYTHONPATH}
@@ -153,13 +207,14 @@ flake8:             ## Enforce the Python Style Guides with Flake8.
 # isort your imports, so you don't have to.
 # https://github.com/PyCQA/isort
 # Configuration file: pyproject.toml
-isort:              ## Edit and sort the imports with isort.
+isort:              ## Edit and sort the imports in the Python code with isort.
 	@echo Info **********  Start: isort ***************************************
-	@echo PYTHON    =${PYTHON}
-	@echo PYTHONPATH=${PYTHONPATH}
+	@echo PYTHON          =${PYTHON}
+	@echo PYTHONPATH      =${PYTHONPATH}
+	@echo PYTHONPATH_TESTS=${PYTHONPATH_TESTS}
 	${PIPENV} run isort --version
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run isort ${PYTHONPATH}
+	${PIPENV} run isort ${PYTHONPATH} ${PYTHONPATH_TESTS}
 	@echo Info **********  End:   isort ***************************************
 
 # Mypy: Static Typing for Python
@@ -167,8 +222,9 @@ isort:              ## Edit and sort the imports with isort.
 # Configuration file: pyproject.toml
 mypy:               ## Find typing issues with Mypy.
 	@echo Info **********  Start: Mypy ****************************************
-	@echo PYTHON    =${PYTHON}
-	@echo PYTHONPATH=${PYTHONPATH}
+	@echo PYTHON          =${PYTHON}
+	@echo PYTHONPATH      =${PYTHONPATH}
+	@echo PYTHONPATH_TESTS=${PYTHONPATH_TESTS}
 	${PIPENV} run mypy --version
 	@echo ----------------------------------------------------------------------
 	${PIPENV} run mypy ${PYTHONPATH}
@@ -252,8 +308,9 @@ pydocstyle:         ## Check the API documentation with pydocstyle.
 # Configuration file: .pylintrc
 pylint:             ## Lint the code with Pylint.
 	@echo Info **********  Start: Pylint **************************************
-	@echo PYTHON    =${PYTHON}
-	@echo PYTHONPATH=${PYTHONPATH}
+	@echo PYTHON          =${PYTHON}
+	@echo PYTHONPATH      =${PYTHONPATH}
+	@echo PYTHONPATH_TESTS=${PYTHONPATH_TESTS}
 	${PIPENV} run pylint --version
 	@echo ----------------------------------------------------------------------
 	${PIPENV} run pylint ${PYTHONPATH}
@@ -267,7 +324,7 @@ pytest:             ## Run all tests with pytest.
 	${PIPENV} run pytest --version
 	@echo ----------------------------------------------------------------------
 	${PIPENV} run pytest --dead-fixtures tests
-	${PIPENV} run pytest --cache-clear --cov=${PYTHONPATH_PYTEST} --cov-report term-missing:skip-covered -v tests
+	${PIPENV} run pytest --cache-clear --cov=${PYTHONPATH_PYTEST} --cov-report term-missing:skip-covered --random-order -v tests
 	@echo Info **********  End:   pytest **************************************
 pytest-ci:          ## Run all tests with pytest after test tool installation.
 	@echo Info **********  Start: pytest **************************************
@@ -301,6 +358,18 @@ pytest-module:      ## Run tests of specific module(s) with pytest - test_all & 
 	${PIPENV} run pytest --cache-clear --cov=${PYTHONPATH_PYTEST} --cov-report term-missing:skip-covered -v tests/test_db_cls_action.py
 	@echo Info **********  End:   pytest **************************************
 
+#rust-run:
+#    @echo Info **********  Start: Rust Run ************************************
+#	@echo ----------------------------------------------------------------------
+#	cargo run
+#	@echo Info **********  End:   Rust Run ************************************
+#
+#rust-target:
+#	@echo Info **********  Start: Rust Build **********************************
+#	@echo ----------------------------------------------------------------------
+#	cargo build
+#	@echo Info **********  End:   Rust Build **********************************
+
 # sphinx: Python Documentation Generator
 # https://github.com/sphinx-doc/sphinx
 # https://www.sphinx-doc.org/en/master/
@@ -316,7 +385,7 @@ pytest-module:      ## Run tests of specific module(s) with pytest - test_all & 
 #    python -m pipenv run sphinx-quickstart
 # Sphinx Themes Gallery:
 #    https://sphinx-themes.org/
-sphinx:             ##  Create the user documentation with Sphinx.
+sphinx:            ##  Create the user documentation with Sphinx.
 	@echo Info **********  Start: sphinx **************************************
 	@echo PYTHON          =${PYTHON}
 	@echo PYTHONPATH_SUA  =${PYTHONPATH_SUA}
@@ -341,6 +410,17 @@ version:            ## Show the installed software versions.
 	${PYTHON} -m pip --version
 	${PYTHON} -m pipenv --version
 	@echo Info **********  End:   version *************************************
+
+# VS Code
+# Setup the environment to develop apps using the sua library
+# Configuration file: none
+vscode:
+	@echo Info **********  Start: Setup Code Enviornment ***********************
+	@echo PYTHON    =${PYTHON}
+	@echo PYTHONPATH=${PYTHONPATH}
+	${PYTHON} --version
+	@echo ---------------------------------------------------------------------
+	${VSCODE} .
 
 # wheel: The official binary distribution format for Python
 # https://github.com/pypa/setuptools

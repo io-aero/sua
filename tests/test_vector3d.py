@@ -98,7 +98,7 @@ def test_dot_product_3():
 def test_magnitude_1():
     """Test the magnitude calculation of a Vector3D object."""
     vector = vector3d.Vector3D(3, 4, 5)
-    assert isclose(vector.magnitude(), 7.071067811865476)
+    assert isclose(vector.magnitude(), 7.0710678118654752)
 
 
 def test_magnitude_2():
@@ -138,9 +138,9 @@ def test_normalize_2():
     vector = vector3d.Vector3D(-1, -1, -1)
     normalized = vector.normalize()
     assert isclose(normalized.magnitude(), 1.0)
-    assert isclose(normalized.x, -0.57735026919)
-    assert isclose(normalized.y, -0.57735026919)
-    assert isclose(normalized.z, -0.57735026919)
+    assert isclose(normalized.x, -0.5773502691896258)
+    assert isclose(normalized.y, -0.5773502691896258)
+    assert isclose(normalized.z, -0.5773502691896258)
 
 
 def test_rotate_1():
@@ -165,7 +165,7 @@ def test_rotate_3():
     vector.rotate(45, "z")
     assert isclose(vector.x, 0.7071067811865476)
     assert isclose(vector.y, 0.7071067811865476)
-    assert (vector.z, 0)
+    assert isclose(vector.z, 0)
 
 
 def test_rotate_4():
@@ -225,7 +225,7 @@ def test_translate_1():
 def test_translate_2():
     """Test the translation of a Vector3D object."""
     vector = vector3d.Vector3D(1, 2, 3)
-    vector.translate(-1, -2, -3                     )
+    vector.translate(-1, -2, -3)
     assert vector.x == 0
     assert vector.y == 0
     assert vector.z == 0
@@ -238,6 +238,7 @@ def test_translate_3():
     assert vector.x == -5
     assert vector.y == -7
     assert vector.z == -9
+
 
 def test_translate_4():
     """Test the translation of a Vector3D object."""

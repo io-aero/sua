@@ -14,16 +14,12 @@ sys.setrecursionlimit(1500)
 project = 'SUA'
 copyright = '2023, IO-Aero'
 author = 'IO-Aero Team'
-release = '1.0.0'
+release = '1.0.1'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = []
-extensions.append('sphinx.ext.autodoc')
-extensions.append('sphinx.ext.coverage')
-extensions.append('sphinx.ext.napoleon')
-extensions.append('sphinx.ext.viewcode')
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.coverage', 'sphinx.ext.napoleon', 'sphinx.ext.viewcode']
 
 # templates_path = ['_templates']
 # exclude_patterns = []
