@@ -21,7 +21,7 @@ jobs:
         os: ["ubuntu-20.04"]
         rust: ["1.70.0"]
         include:
-            components: 'build clippy docs rustfmt test'
+          - components: 'build clippy docs rustfmt test'
     steps:
       - uses: actions/checkout@v3
         with:
