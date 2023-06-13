@@ -9,7 +9,7 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
-  standards:
+  python_coveralls:
     # --------------------------------------------------------------------------
     # Create and store the coveralls results.
     # --------------------------------------------------------------------------
