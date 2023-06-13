@@ -42,4 +42,3 @@ jobs:
             echo "Current version of Ubuntu: $(lsb_release -a)"
             echo "================================================================================"
             make final-rust
-            git reset
