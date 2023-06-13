@@ -41,5 +41,6 @@ jobs:
             echo "Current version of pip3: $(pip --version || true)"
             echo "Current version of Ubuntu: $(lsb_release -a)"
             echo "================================================================================"
-            make final-python
+            # make final-python
+            make isort black lint-python tests-python docs-python build-python
             git reset

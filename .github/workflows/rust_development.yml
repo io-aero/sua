@@ -9,7 +9,7 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
-  rust_development:
+  test_development:
     # --------------------------------------------------------------------------
     # Install the development environment and run all tests based on cargo test.
     # --------------------------------------------------------------------------
@@ -31,8 +31,6 @@ jobs:
       - name: Install Step - Necessary system software
         run: |
             sudo apt-get update -y
-      - name: Install dev dependencies
-        run: make pipenv-dev
       - name: Run the whole software quality chain
         run: |
             echo "::echo::on"
@@ -41,5 +39,5 @@ jobs:
             echo "Current version of Rust:   $(rustc --version)"
             echo "Current version of Ubuntu: $(lsb_release -a)"
             echo "================================================================================"
-            make isort black lint-python tests-python docs-python build-python
+            make final-rust
             git reset
