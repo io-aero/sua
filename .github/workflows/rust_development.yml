@@ -32,7 +32,7 @@ jobs:
         run: |
             sudo apt-get update -y
       - name: Install dev dependencies
-        run: rustup component add clippy rustfmt test
+        run: rustup component add clippy rustfmt
       - name: Run the whole software quality chain
         run: |
             echo "::echo::on"
