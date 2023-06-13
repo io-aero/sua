@@ -1,19 +1,19 @@
-name: Coveralls
+name: Python - Development
 
 on:
   pull_request:
-    types: [closed]
+    types: [opened, reopened]
     branches: [ 'main' ]
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
-  standards:
+  test_development:
     # --------------------------------------------------------------------------
-    # Create and store the coveralls results.
+    # Install the development environment and run all tests based on pytest.
     # --------------------------------------------------------------------------
-    name: OS ${{ matrix.os }} - Python ${{ matrix.python-version }} - Development Standards
+    name: OS ${{ matrix.os }} - Python ${{ matrix.python-version }}
     runs-on: ${{ matrix.os }}
     strategy:
       max-parallel: 1
@@ -33,11 +33,11 @@ jobs:
             sudo apt-get update -y
       - name: Install dev dependencies
         run: make pipenv-dev
-      - name: Run the tests
-        run: |
-          git checkout main
-          make pytest
-      - name: Publish the code coverage to coveralls.io
+      - name: Compile the Python code
+        # run: make build-python
+        # run: make isort black docformatter lint-python tests-python docs-python build-python
+        run: make isort black              lint-python tests-python docs-python build-python
+      - name: Run the whole software quality chain
         run: |
             echo "::echo::on"
             echo "================================================================================"
@@ -45,4 +45,5 @@ jobs:
             echo "Current version of pip3: $(pip --version || true)"
             echo "Current version of Ubuntu: $(lsb_release -a)"
             echo "================================================================================"
-            make coveralls
+            make final-python
+            git reset
