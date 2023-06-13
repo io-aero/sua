@@ -13,6 +13,7 @@ ifeq ($(OS),Windows_NT)
 	export PYTHONPATH=src
 	export PYTHONPATH_PYTEST=src
 	export PYTHONPATH_SUA=src\\sua
+	export PYTHONPATH_TESTS=tests
 	export SETUP=${PYTHON} src\\setup.py
 	export SPHINX_BUILDDIR=docs\\build
 	export SPHINX_SOURCEDIR=docs\\source
@@ -30,6 +31,7 @@ else
 	export PYTHONPATH=src
 	export PYTHONPATH_PYTEST=src
 	export PYTHONPATH_SUA=src/sua
+	export PYTHONPATH_TESTS=tests
 	export SETUP=${PYTHON} src/setup.py
 	export SPHINX_BUILDDIR=docs/build
 	export SPHINX_SOURCEDIR=docs/source
@@ -102,8 +104,9 @@ help:
 # Configuration file: none
 bandit:             ## Find common security issues with Bandit.
 	@echo Info **********  Start: Bandit ***************************************
-	@echo PYTHON    =${PYTHON}
-	@echo PYTHONPATH=${PYTHONPATH}
+	@echo PYTHON          =${PYTHON}
+	@echo PYTHONPATH      =${PYTHONPATH}
+	@echo PYTHONPATH_TESTS=${PYTHONPATH_TESTS}
 	${PIPENV} run bandit --version
 	@echo ----------------------------------------------------------------------
 	${PIPENV} run bandit -c pyproject.toml -r ${PYTHONPATH}
@@ -114,11 +117,12 @@ bandit:             ## Find common security issues with Bandit.
 # Configuration file: pyproject.toml
 black:              ## Format the Python code with Black.
 	@echo Info **********  Start: black ****************************************
-	@echo PYTHON    =${PYTHON}
-	@echo PYTHONPATH=${PYTHONPATH}
+	@echo PYTHON          =${PYTHON}
+	@echo PYTHONPATH      =${PYTHONPATH}
+	@echo PYTHONPATH_TESTS=${PYTHONPATH_TESTS}
 	${PIPENV} run black --version
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run black ${PYTHONPATH}
+	${PIPENV} run black ${PYTHONPATH} ${PYTHONPATH_TESTS}
 	@echo Info **********  End:   black ****************************************
 
 cargo-build:        ## Build the Rust application.
@@ -192,8 +196,9 @@ docformatter:       ## Format the docstrings in the Python code with docformatte
 # Configuration file: cfg.cfg
 flake8:             ## Enforce the Python Style Guides with Flake8.
 	@echo Info **********  Start: Flake8 **************************************
-	@echo PYTHON    =${PYTHON}
-	@echo PYTHONPATH=${PYTHONPATH}
+	@echo PYTHON          =${PYTHON}
+	@echo PYTHONPATH      =${PYTHONPATH}
+	@echo PYTHONPATH_TESTS=${PYTHONPATH_TESTS}
 	${PIPENV} run flake8 --version
 	@echo ----------------------------------------------------------------------
 	${PIPENV} run flake8 ${PYTHONPATH}
@@ -204,11 +209,12 @@ flake8:             ## Enforce the Python Style Guides with Flake8.
 # Configuration file: pyproject.toml
 isort:              ## Edit and sort the imports in the Python code with isort.
 	@echo Info **********  Start: isort ***************************************
-	@echo PYTHON    =${PYTHON}
-	@echo PYTHONPATH=${PYTHONPATH}
+	@echo PYTHON          =${PYTHON}
+	@echo PYTHONPATH      =${PYTHONPATH}
+	@echo PYTHONPATH_TESTS=${PYTHONPATH_TESTS}
 	${PIPENV} run isort --version
 	@echo ----------------------------------------------------------------------
-	${PIPENV} run isort ${PYTHONPATH}
+	${PIPENV} run isort ${PYTHONPATH} ${PYTHONPATH_TESTS}
 	@echo Info **********  End:   isort ***************************************
 
 # Mypy: Static Typing for Python
@@ -216,8 +222,9 @@ isort:              ## Edit and sort the imports in the Python code with isort.
 # Configuration file: pyproject.toml
 mypy:               ## Find typing issues with Mypy.
 	@echo Info **********  Start: Mypy ****************************************
-	@echo PYTHON    =${PYTHON}
-	@echo PYTHONPATH=${PYTHONPATH}
+	@echo PYTHON          =${PYTHON}
+	@echo PYTHONPATH      =${PYTHONPATH}
+	@echo PYTHONPATH_TESTS=${PYTHONPATH_TESTS}
 	${PIPENV} run mypy --version
 	@echo ----------------------------------------------------------------------
 	${PIPENV} run mypy ${PYTHONPATH}
@@ -301,8 +308,9 @@ pydocstyle:         ## Check the API documentation with pydocstyle.
 # Configuration file: .pylintrc
 pylint:             ## Lint the code with Pylint.
 	@echo Info **********  Start: Pylint **************************************
-	@echo PYTHON    =${PYTHON}
-	@echo PYTHONPATH=${PYTHONPATH}
+	@echo PYTHON          =${PYTHON}
+	@echo PYTHONPATH      =${PYTHONPATH}
+	@echo PYTHONPATH_TESTS=${PYTHONPATH_TESTS}
 	${PIPENV} run pylint --version
 	@echo ----------------------------------------------------------------------
 	${PIPENV} run pylint ${PYTHONPATH}

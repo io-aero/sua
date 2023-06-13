@@ -225,7 +225,7 @@ def test_translate_1():
 def test_translate_2():
     """Test the translation of a Vector3D object."""
     vector = vector3d.Vector3D(1, 2, 3)
-    vector.translate(-1, -2, -3                     )
+    vector.translate(-1, -2, -3)
     assert vector.x == 0
     assert vector.y == 0
     assert vector.z == 0
@@ -238,6 +238,7 @@ def test_translate_3():
     assert vector.x == -5
     assert vector.y == -7
     assert vector.z == -9
+
 
 def test_translate_4():
     """Test the translation of a Vector3D object."""
