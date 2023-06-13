@@ -1,19 +1,19 @@
-name: All - Production
+name: Python - Coveralls
 
 on:
   pull_request:
-    types: [opened, reopened]
+    types: [closed]
     branches: [ 'main' ]
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
-  test_production:
+  standards:
     # --------------------------------------------------------------------------
-    # Install the productive environment and run all tests based on pytest.
+    # Create and store the coveralls results.
     # --------------------------------------------------------------------------
-    name: OS ${{ matrix.os }} - Python ${{ matrix.python-version }}
+    name: OS ${{ matrix.os }} - Python ${{ matrix.python-version }} - Development Standards
     runs-on: ${{ matrix.os }}
     strategy:
       max-parallel: 1
@@ -31,11 +31,13 @@ jobs:
       - name: Install Step - Necessary system software
         run: |
             sudo apt-get update -y
-      - name: Install prod dependencies
-        run: make pipenv-prod
-      - name: Compile the Python code
-        run: make compileall
-      - name: Run pytest for writing better program
+      - name: Install dev dependencies
+        run: make pipenv-dev
+      - name: Run the tests
+        run: |
+          git checkout main
+          make pytest
+      - name: Publish the code coverage to coveralls.io
         run: |
             echo "::echo::on"
             echo "================================================================================"
@@ -43,4 +45,4 @@ jobs:
             echo "Current version of pip3: $(pip --version || true)"
             echo "Current version of Ubuntu: $(lsb_release -a)"
             echo "================================================================================"
-            make pytest-ci
+            make coveralls
