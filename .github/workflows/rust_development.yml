@@ -30,7 +30,7 @@ jobs:
         with:
           fetch-depth: 1  # no history, just HEAD
       - name: Set up Rust ${{ matrix.rust-version }}
-        uses: hecrj/setup-rust-action@maste
+        uses: hecrj/setup-rust-action@master
         with:
           rust-version: ${{ matrix.rust }}
       - name: Install Step - Necessary system software
