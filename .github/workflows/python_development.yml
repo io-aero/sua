@@ -35,8 +35,8 @@ jobs:
         run: make pipenv-dev
       - name: Compile the Python code
         # run: make build-python
-        # run: isort black docformatter lint-python tests-python docs-python build-python
-        run: isort black              lint-python tests-python docs-python build-python
+        # run: make isort black docformatter lint-python tests-python docs-python build-python
+        run: make isort black              lint-python tests-python docs-python build-python
       - name: Run the whole software quality chain
         run: |
             echo "::echo::on"
