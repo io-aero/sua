@@ -21,10 +21,7 @@ jobs:
         os: ["ubuntu-20.04"]
         rust: ["1.70.0"]
         include:
-          - os: ubuntu-latest
-            rust: '1.70.0'
-            components: 'build clippy docs rustfmt test'
-            targets: 'x86_64-unknown-linux-musl'
+          - components: 'build clippy docs rustfmt test'
     steps:
       - uses: actions/checkout@v3
         with:
