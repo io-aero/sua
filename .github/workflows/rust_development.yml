@@ -1,4 +1,4 @@
-name: Python - Development
+name: Rust - Development
 
 on:
   pull_request:
@@ -11,23 +11,23 @@ env:
 jobs:
   test_development:
     # --------------------------------------------------------------------------
-    # Install the development environment and run all tests based on pytest.
+    # Install the development environment and run all tests based on cargo test.
     # --------------------------------------------------------------------------
-    name: OS ${{ matrix.os }} - Python ${{ matrix.python-version }}
+    name: OS ${{ matrix.os }} - Rust ${{ matrix.rust-version }}
     runs-on: ${{ matrix.os }}
     strategy:
       max-parallel: 1
       matrix:
         os: ["ubuntu-20.04"]
-        python-version: ["3.10"]
+        rust: ["1.70.0"]
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 1  # no history, just HEAD
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v3
+      - name: Set up Rust ${{ matrix.rust-version }}
+        uses: actions/setup-rust-action@v1
         with:
-          python-version: ${{ matrix.python-version }}
+          rust-version: ${{ matrix.rust }}
       - name: Install Step - Necessary system software
         run: |
             sudo apt-get update -y
@@ -37,9 +37,9 @@ jobs:
         run: |
             echo "::echo::on"
             echo "================================================================================"
-            echo "Current version of Python3: $(python --version)"
-            echo "Current version of pip3: $(pip --version || true)"
+            echo "Current version of Cargo:  $(cargo --version --verbose)"
+            echo "Current version of Rust:   $(rustc --version)"
             echo "Current version of Ubuntu: $(lsb_release -a)"
             echo "================================================================================"
-            make final-python
+            make final-rust
             git reset
