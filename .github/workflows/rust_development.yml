@@ -20,12 +20,17 @@ jobs:
       matrix:
         os: ["ubuntu-20.04"]
         rust: ["1.70.0"]
+        include:
+          - os: ubuntu-latest
+            rust: '1.70.0'
+            components: 'build clippy docs rustfmt test'
+            targets: 'x86_64-unknown-linux-musl'
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 1  # no history, just HEAD
       - name: Set up Rust ${{ matrix.rust-version }}
-        uses: hecrj/setup-rust-action@v1
+        uses: hecrj/setup-rust-action@maste
         with:
           rust-version: ${{ matrix.rust }}
       - name: Install Step - Necessary system software
@@ -35,7 +40,7 @@ jobs:
         run: |
             echo "::echo::on"
             echo "================================================================================"
-            echo "Current version of Cargo:  $(cargo --version --verbose)"
+            echo "Current version of Cargo:  $(cargo --version)"
             echo "Current version of Rust:   $(rustc --version)"
             echo "Current version of Ubuntu: $(lsb_release -a)"
             echo "================================================================================"
