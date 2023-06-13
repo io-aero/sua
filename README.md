@@ -5,7 +5,7 @@
 ![Coverage Status](https://coveralls.io/repos/github/io-aero/sua/badge.svg?branch=main)
 ![GitHub release](https://img.shields.io/github/release/io-aero/sua.svg)
 ![GitHub Release Date](https://img.shields.io/github/release-date/io-aero/sua.svg)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/io-aero/sua/1.0.0.svg)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/io-aero/sua/1.0.1.svg)
 
 ---
 
