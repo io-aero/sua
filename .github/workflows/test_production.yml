@@ -34,7 +34,7 @@ jobs:
       - name: Install prod dependencies
         run: make pipenv-prod
       - name: Compile the Python code
-        run: make build-python
+        run: make compileall
       - name: Run pytest for writing better program
         run: |
             echo "::echo::on"
