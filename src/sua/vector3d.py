@@ -156,19 +156,6 @@ class Vector3D:
             axis (str): The axis of rotation ('x', 'y', or 'z'). Default is the
                         'x' axis.
         """
-        print(
-            "wwe old x="
-            + str(self.x)
-            + " old y="
-            + str(self.y)
-            + " old z="
-            + str(self.z)
-            + " angle="
-            + str(angle)
-            + " axis="
-            + axis
-        )
-
         rad_angle = radians(angle)
 
         axis_lower = axis.lower()

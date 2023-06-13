@@ -57,7 +57,7 @@ docs: pydocstyle sphinx
 ## final:              Format, lint and test the code, create a ddl, the documentation and a wheel.
 final: format lint docs pytest wheel nuitka
 ## format:             Format the code with isort, Black and docformatter.
-format: isort black docformatter
+format: isort black docformatter rustfmt
 ## lint:               Lint the code with Bandit, Flake8, Pylint and Mypy.
 lint: bandit flake8 pylint mypy
 ## tests:              Run all tests with pytest.
@@ -91,16 +91,13 @@ black:              ## Format the code with Black.
 	${PIPENV} run black ${PYTHONPATH}
 	@echo Info **********  End:   black ****************************************
 
-# VS Code
-# Setup the environment to develop apps using the sua library
-# Configuration file: none
-vscode:
-	@echo Info **********  Start: Setup Code Enviornment ***********************
-	@echo PYTHON    =${PYTHON}
-	@echo PYTHONPATH=${PYTHONPATH}
-	${PYTHON} --version
-	@echo ---------------------------------------------------------------------
-	${VSCODE} .
+clippy:               ## Lint Rust code with clippy.
+	@echo Info **********  Start: clippy **************************************
+	cargo clippy --version
+	@echo ----------------------------------------------------------------------
+	cargo clippy --all-targets --all-features -- -D warnings
+	@echo Info **********  End:   clippy **************************************
+
 # Byte-compile Python libraries
 # https://docs.python.org/3/library/compileall.html
 # Configuration file: none
@@ -301,6 +298,25 @@ pytest-module:      ## Run tests of specific module(s) with pytest - test_all & 
 	${PIPENV} run pytest --cache-clear --cov=${PYTHONPATH_PYTEST} --cov-report term-missing:skip-covered -v tests/test_db_cls_action.py
 	@echo Info **********  End:   pytest **************************************
 
+#rust-run:
+#    @echo Info **********  Start: Rust Run ************************************
+#	@echo ----------------------------------------------------------------------
+#	cargo run
+#	@echo Info **********  End:   Rust Run ************************************
+#
+#rust-target:
+#	@echo Info **********  Start: Rust Build **********************************
+#	@echo ----------------------------------------------------------------------
+#	cargo build
+#	@echo Info **********  End:   Rust Build **********************************
+
+rustfmt:              ## Format Rust code with rustfmt.
+	@echo Info **********  Start: rustfmt *************************************
+	cargo fmt --version
+	@echo ----------------------------------------------------------------------
+	cargo fmt
+	@echo Info **********  End:   rustfmt *************************************
+
 # sphinx: Python Documentation Generator
 # https://github.com/sphinx-doc/sphinx
 # https://www.sphinx-doc.org/en/master/
@@ -341,6 +357,17 @@ version:            ## Show the installed software versions.
 	${PYTHON} -m pip --version
 	${PYTHON} -m pipenv --version
 	@echo Info **********  End:   version *************************************
+
+# VS Code
+# Setup the environment to develop apps using the sua library
+# Configuration file: none
+vscode:
+	@echo Info **********  Start: Setup Code Enviornment ***********************
+	@echo PYTHON    =${PYTHON}
+	@echo PYTHONPATH=${PYTHONPATH}
+	${PYTHON} --version
+	@echo ---------------------------------------------------------------------
+	${VSCODE} .
 
 # wheel: The official binary distribution format for Python
 # https://github.com/pypa/setuptools
